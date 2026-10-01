@@ -303,6 +303,7 @@ html.motion .hero__mark .mk { opacity: 0; }
 .care h3 { font-size: 1.25rem; }
 .care__price { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; letter-spacing: -0.02em; }
 .care__price small { font-size: 13px; font-weight: 600; color: var(--ink-3); letter-spacing: 0.08em; }
+.care__alt { font-size: 13.5px; color: #8a5f12; font-weight: 600; margin-top: 4px; }
 .care ul { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 14.5px; color: var(--ink-2); }
 .care li::before { content: "\2713"; color: #9a6f1f; margin-right: 8px; font-weight: 700; }
 .pricing__note { margin-top: 28px; text-align: center; color: var(--ink-2); font-size: 14.5px; }

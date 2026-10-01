@@ -160,6 +160,14 @@ scripts: quote
                 <label class="opt"><input type="radio" name="budget" value="unsure"><span class="opt__body"><span class="opt__title">Honestly, no idea</span><span class="opt__desc">That's what this is for.</span></span></label>
               </div>
             </div>
+            <div class="qgroup">
+              <span class="field__label">After launch, would you like me to keep it running? (optional)</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="radio" name="care" value="annual"><span class="opt__body"><span class="opt__title">Yes, yearly</span><span class="opt__desc">{{price.careyear}} a year, two months free</span></span></label>
+                <label class="opt"><input type="radio" name="care" value="monthly"><span class="opt__body"><span class="opt__title">Yes, monthly</span><span class="opt__desc">{{price.care}} a month, cancel anytime</span></span></label>
+                <label class="opt"><input type="radio" name="care" value="later"><span class="opt__body"><span class="opt__title">Ask me after launch</span><span class="opt__desc">No problem either way.</span></span></label>
+              </div>
+            </div>
           </fieldset>
 
           <!-- 7 -->

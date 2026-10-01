@@ -30,6 +30,7 @@ $siteHost = $domain -replace '^https?://', ''
 $prices = @{}
 foreach ($t in $site.pricing.tiers) { $prices[[string]$t.id] = [int]$t.from }
 $prices['care'] = [int]$site.pricing.care.from
+$prices['careyear'] = [int]$site.pricing.care.annual
 $locality = ([string]$site.location -split ',')[0].Trim()
 $region = if (([string]$site.location -split ',').Count -gt 1) { ([string]$site.location -split ',')[1].Trim() } else { '' }
 

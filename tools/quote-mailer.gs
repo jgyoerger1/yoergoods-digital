@@ -50,7 +50,7 @@ function doPost(e) {
       ['Starting point', clean_(d.situationLabel, 80)], ['Current site', clean_(d.currentSite, 300)],
       ['Goals', list_(d.goals)], ['Size', clean_(d.sizeLabel, 80)], ['Extras', list_(d.features)],
       ['Logo', clean_(d.logo, 60)], ['Photos', clean_(d.photos, 60)], ['Words', clean_(d.copy, 60)],
-      ['Timeline', clean_(d.timeline, 60)], ['Comfort zone', clean_(d.budget, 60)],
+      ['Timeline', clean_(d.timeline, 60)], ['Comfort zone', clean_(d.budget, 60)], ['Care plan', clean_(d.care, 60)],
       ['Socials', socLine], ['Estimate shown', est],
       ['Files', blobs.length ? blobs.length + ' attached' + (skipped ? ' (' + skipped + ' skipped: too large or not an image/PDF)' : '') : 'none']
     ].filter(function (r) { return r[1]; });

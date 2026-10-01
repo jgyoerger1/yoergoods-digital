@@ -63,11 +63,12 @@
     ],
     "care": {
       "from": 49,
+      "annual": 490,
       "items": [
-        "Hosting and backups",
+        "Hosting, DNS and backups",
         "Small edits each month",
-        "Speed and search check",
-        "One owner to call"
+        "Monthly speed and search check",
+        "Domain stays in your name"
       ]
     },
     "estimate": {

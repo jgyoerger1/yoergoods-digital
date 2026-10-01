@@ -52,7 +52,8 @@
       photos: (checked('photos')[0] || {}).value || '',
       copy: (checked('copy')[0] || {}).value || '',
       timeline: (checked('timeline')[0] || {}).value || '',
-      budget: (checked('budget')[0] || {}).value || ''
+      budget: (checked('budget')[0] || {}).value || '',
+      care: (checked('care')[0] || {}).value || ''
     };
   };
   var estimate = function (s) {
@@ -85,6 +86,7 @@
     if (s.copy) rows.push(['Words', labelOf('copy', s.copy)]);
     if (s.timeline) rows.push(['Timeline', labelOf('timeline', s.timeline)]);
     if (s.budget) rows.push(['Comfort zone', labelOf('budget', s.budget)]);
+    if (s.care) rows.push(['Care plan', labelOf('care', s.care)]);
     return rows;
   };
   var renderRange = function (est) {
@@ -320,7 +322,7 @@
       goals: s.goals.map(function (g) { return labelOf('goals', g); }), size: s.size, sizeLabel: labelOf('size', s.size),
       features: s.features.map(function (f) { return labelOf('features', f); }),
       logo: s.logo ? labelOf('logo', s.logo) : '', photos: s.photos ? labelOf('photos', s.photos) : '', copy: s.copy ? labelOf('copy', s.copy) : '',
-      timeline: s.timeline ? labelOf('timeline', s.timeline) : '', budget: s.budget ? labelOf('budget', s.budget) : '',
+      timeline: s.timeline ? labelOf('timeline', s.timeline) : '', budget: s.budget ? labelOf('budget', s.budget) : '', care: s.care ? labelOf('care', s.care) : '',
       socials: socialsOf(), estimate: est ? { low: est.low, high: est.high } : null, summary: body, page: location.href
     };
     Promise.all(picked.map(function (p) { return p.ready; }))
