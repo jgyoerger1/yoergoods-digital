@@ -1,0 +1,103 @@
+{
+  "name": "Yoergoods Digital",
+  "shortName": "Yoergoods",
+  "tagline": "Websites that work harder",
+  "domain": "https://jordanyoerger.com",
+  "basePath": "/yoergoods-digital",
+  "email": "hello@yoergoodsdigital.com",
+  "phone": "",
+  "owner": "Jordan Yoerger",
+  "ownerTitle": "Founder. Project manager by day, builder by nature.",
+  "location": "Stow, Ohio",
+  "region": "Northeast Ohio",
+  "quoteEndpoint": "",
+  "socials": {
+    "linkedin": "https://www.linkedin.com/in/jordan-yoerger",
+    "instagram": "",
+    "facebook": ""
+  },
+  "pricing": {
+    "tiers": [
+      {
+        "id": "launch",
+        "name": "Launch",
+        "from": 1200,
+        "tag": "New businesses",
+        "blurb": "For businesses that need to exist online, properly, and fast.",
+        "items": [
+          "One page or up to three pages",
+          "Mobile-first design, fast on every phone",
+          "Contact or quote form to your inbox",
+          "Domain, hosting and Google Business set up",
+          "Typical turnaround: two weeks"
+        ]
+      },
+      {
+        "id": "grow",
+        "name": "Grow",
+        "from": 2800,
+        "tag": "Most popular",
+        "blurb": "For businesses ready to win work from their website.",
+        "items": [
+          "Up to eight pages, one per service or audience",
+          "Service pages written to be found on Google",
+          "Portfolio or photo gallery",
+          "Quote builder or booking form",
+          "Analytics, search setup and 30 days of fixes"
+        ]
+      },
+      {
+        "id": "refresh",
+        "name": "Refresh",
+        "from": 900,
+        "tag": "Existing sites",
+        "blurb": "For sites that need a reset, not a rebuild.",
+        "items": [
+          "New design on the content you already have",
+          "Speed and mobile fixes",
+          "Updated photos, copy and contact details",
+          "Search cleanup and redirects handled",
+          "Nothing you rely on gets lost"
+        ]
+      }
+    ],
+    "care": {
+      "from": 49,
+      "items": [
+        "Hosting and backups",
+        "Small edits each month",
+        "Speed and search check",
+        "One owner to call"
+      ]
+    },
+    "estimate": {
+      "size": {
+        "one": 1200,
+        "small": 2400,
+        "full": 4200,
+        "large": 6500
+      },
+      "situationMultiplier": {
+        "none": 1,
+        "refresh": 0.85,
+        "rebuild": 1
+      },
+      "features": {
+        "gallery": 300,
+        "blog": 400,
+        "booking": 350,
+        "store": 1800,
+        "reviews": 150,
+        "maps": 150,
+        "languages": 600
+      },
+      "addons": {
+        "brand": 450,
+        "copy": 500,
+        "photos": 250
+      },
+      "rangeLow": 0.9,
+      "rangeHigh": 1.15
+    }
+  }
+}

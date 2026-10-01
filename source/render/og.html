@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;800&family=Inter:wght@500;600&display=block">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { background: #0b1420 url('file:///C:/Dev/yoergoods-digital/source/render/lava.png') center / cover no-repeat; color: #f4efe6; font-family: Inter, sans-serif; position: relative; }
+  .shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,20,32,.55), rgba(11,20,32,.25) 60%, rgba(11,20,32,.6)), linear-gradient(180deg, rgba(11,20,32,.35), rgba(11,20,32,.15) 50%, rgba(11,20,32,.75)); }
+  .wrap { position: absolute; left: 88px; top: 118px; display: flex; gap: 56px; align-items: center; }
+  svg { width: 250px; height: 250px; flex: none; filter: drop-shadow(0 18px 40px rgba(0,0,0,.55)); }
+  .name { font-family: Outfit, sans-serif; font-weight: 800; font-size: 92px; letter-spacing: .02em; line-height: 1; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
+  .sub { font-family: Outfit, sans-serif; font-weight: 700; font-size: 44px; letter-spacing: .34em; color: #c8973f; margin-top: 10px; }
+  .tag { font-size: 24px; letter-spacing: .28em; text-transform: uppercase; margin-top: 30px; color: #e8e6e1; }
+  .url { position: absolute; left: 88px; bottom: 64px; font-size: 24px; color: #a9aeb8; letter-spacing: .04em; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: linear-gradient(90deg, #c8973f, #e2b86a); }
+</style>
+</head>
+<body>
+  <div class="shade"></div>
+  <div class="wrap">
+    <svg viewBox="0 0 120 120">
+      <defs><linearGradient id="gu" gradientUnits="userSpaceOnUse" x1="40" y1="44" x2="66" y2="76"><stop offset="0" stop-color="#c8973f"/><stop offset=".3" stop-color="#c8973f"/><stop offset=".48" stop-color="#8a6526"/><stop offset=".72" stop-color="#8a6526"/><stop offset="1" stop-color="#c8973f"/></linearGradient></defs>
+      <g fill="none" stroke-linecap="butt" stroke-linejoin="round">
+        <path stroke="url(#gu)" stroke-width="15" d="M 12 22 C 26 34, 44 46, 54 58 C 62 66, 66 72, 66 76"/>
+        <path stroke="#f4efe6" stroke-width="17" d="M 100 10 C 88 26, 72 42, 60 56 C 48 68, 44 78, 52 88 C 58 95, 62 104, 62 116"/>
+        <path stroke="#c8973f" stroke-width="15" d="M 66 76 C 66 84, 58 92, 52 100 C 49 104, 48 110, 48 116"/>
+      </g>
+    </svg>
+    <div>
+      <div class="name">YOERGOODS</div>
+      <div class="sub">DIGITAL</div>
+      <div class="tag">Websites that work harder</div>
+    </div>
+  </div>
+  <div class="url">jordanyoerger.com</div>
+  <div class="bar"></div>
+</body>
+</html>

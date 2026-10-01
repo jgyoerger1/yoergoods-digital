@@ -1,0 +1,13 @@
+{
+  "name": "Yoergoods Digital",
+  "short_name": "Yoergoods",
+  "description": "Websites that work harder. Small-business websites with fixed-price quotes.",
+  "start_url": "{{base}}/",
+  "display": "browser",
+  "background_color": "#0b1420",
+  "theme_color": "#0b1420",
+  "icons": [
+    { "src": "{{base}}/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "{{base}}/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
