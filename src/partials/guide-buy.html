@@ -1,0 +1,29 @@
+<aside class="buy" data-reveal="scale">
+  {{#site.guides.SLUG.buyUrl}}
+  <div class="buy__price">{{site.guides.SLUG.price|money}}<small>one-time</small></div>
+  <a class="btn btn--gold" href="{{site.guides.SLUG.buyUrl}}" target="_blank" rel="noopener">Buy the guide</a>
+  <small>Delivered by email right away. Updates for a year. 14-day refund, no questions.</small>
+  {{/site.guides.SLUG.buyUrl}}
+  {{^site.guides.SLUG.buyUrl}}
+  <span class="badge-soon">Coming soon</span>
+  <div class="buy__price">{{site.guides.SLUG.price|money}}<small>at launch</small></div>
+  <form data-lead data-endpoint="{{site.newsletterEndpoint}}" data-tag="guide-SLUG" data-email="{{site.email}}" data-subject="Notify me: {{site.guides.SLUG.title}}" novalidate>
+    <label class="field__label" for="notify-email">Email me when it's ready</label>
+    <input type="email" id="notify-email" name="email" placeholder="you@company.com" required autocomplete="email">
+    <button class="btn btn--gold" type="submit">Notify me</button>
+    <small>Launch-day price for early readers. No spam.</small>
+  </form>
+  <div class="lead__done" hidden>
+    <strong>Noted.</strong>
+    <small data-when="connected" hidden>You'll get an email the day it ships, with the launch price.</small>
+    <small data-when="fallback" hidden>The mailing list isn't wired up yet. <a data-mailto href="mailto:{{site.email}}">Send me a one-line email</a> and I'll tell you personally when it ships.</small>
+    <a class="link" href="{{base}}/ai/#free">Grab the free prompts meanwhile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  {{/site.guides.SLUG.buyUrl}}
+  <ul>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>PDF, about {{site.guides.SLUG.pages}} pages</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Copy-and-paste prompt library</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Every update for a year</li>
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Or all five guides for {{site.ai.bundlePrice|money}}</li>
+  </ul>
+</aside>

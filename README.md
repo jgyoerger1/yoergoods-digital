@@ -110,6 +110,23 @@ the script. Then run `build.ps1`.
   checked 30 Sep 2026. Market numbers are hard-coded in `src\pages\pricing\index.html`; your own prices come
   from site.json. Re-check the sources every few months.
 
+## AI help, guides, portfolio sites (added 2026-10-04)
+
+- `/ai/` sells two live sessions (AI Power Hour, AI Tune-Up). Prices and booking links live in site.json under
+  `ai`. With `bookUrl` empty the buttons are "Book by email"; paste a Cal.com or Calendly event URL (with its Stripe
+  payment step) and they become "Pick a time".
+- `/guides/` and `/guides/<slug>/` are the five guide sales pages. The catalog is site.json `guides` (title, price,
+  tag, promise, pages, buyUrl). With `buyUrl` empty a page shows "Coming soon" with a notify form; paste the
+  Lemon Squeezy or Gumroad checkout URL and it flips to "Buy the guide" (structured data flips PreOrder to InStock).
+  Guide outlines and prompt libraries to write from are in `C:\Dev\yoergoods-business\guides\`.
+- Lead magnet: `src\downloads\yoergoods-ten-ai-prompts.html` is printed to `docs\downloads\...pdf` by the build.
+  The forms on /ai/ and /guides/ post the email to `newsletterEndpoint` (Buttondown: `https://buttondown.com/api/emails/embed-subscribe/<username>`;
+  MailerLite and Kit have equivalents) and then show the PDF. With the endpoint empty they still hand over the
+  PDF but say honestly that the list isn't connected and offer a one-line email instead.
+- `/portfolio-websites/` targets professionals and job seekers; `pricing.portfolio.from` sets the price, and the
+  quote builder has a "professional, not a business" starting point plus a "Portfolio site" size ($750 base).
+- Services is now a dropdown (Websites, Portfolio sites, AI help, Guides) on desktop and grouped in the mobile menu.
+
 ## SEO built in
 
 Per-page titles and descriptions, canonical URLs, Open Graph + Twitter cards with a rendered 1200x630 image,

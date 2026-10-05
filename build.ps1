@@ -68,15 +68,28 @@ $orgJson = $org | ConvertTo-Json -Compress -Depth 10
 $partials = @{}
 Get-ChildItem (Join-Path $src 'partials') -File | ForEach-Object { $partials[[IO.Path]::GetFileNameWithoutExtension($_.Name)] = Read-Text $_.FullName }
 
+# {{include:name}} or {{include:name|KEY=value|OTHER=value}} (each KEY is replaced literally inside the partial)
 function Expand-Includes([string]$text) {
   for ($i = 0; $i -lt 6; $i++) {
     if ($text -notmatch '\{\{include:') { break }
-    $text = [regex]::Replace($text, '\{\{include:([a-zA-Z0-9_-]+)\}\}', [System.Text.RegularExpressions.MatchEvaluator]{
+    $text = [regex]::Replace($text, '\{\{include:([a-zA-Z0-9_-]+)((?:\|[A-Za-z_]+=[^|}]+)*)\}\}', [System.Text.RegularExpressions.MatchEvaluator]{
       param($m) $n = $m.Groups[1].Value
-      if ($partials.ContainsKey($n)) { return $partials[$n].TrimEnd() } else { throw "Unknown partial: $n" }
+      if (-not $partials.ContainsKey($n)) { throw "Unknown partial: $n" }
+      $body = $partials[$n].TrimEnd()
+      foreach ($kv in ($m.Groups[2].Value -split '\|')) { if ($kv -match '^([A-Za-z_]+)=(.+)$') { $body = $body.Replace($matches[1], $matches[2]) } }
+      return $body
     })
   }
   return $text
+}
+function Get-SitePath([string]$path) {
+  $cur = $site
+  foreach ($part in $path.Split('.')) {
+    if ($null -eq $cur) { return $null }
+    if ($cur -is [array]) { $idx = 0; if ([int]::TryParse($part, [ref]$idx) -and $idx -lt $cur.Count) { $cur = $cur[$idx] } else { return $null } }
+    else { $p = $cur.PSObject.Properties[$part]; if ($p) { $cur = $p.Value } else { return $null } }
+  }
+  return $cur
 }
 function Expand-Site([string]$text) {
   $text = [regex]::Replace($text, '\{\{price\.([a-z]+)(\.raw)?\}\}', [System.Text.RegularExpressions.MatchEvaluator]{
@@ -84,14 +97,26 @@ function Expand-Site([string]$text) {
     if (-not $prices.ContainsKey($id)) { throw "Unknown price token: $id" }
     if ($m.Groups[2].Success) { return [string]$prices[$id] } else { return (Money $prices[$id]) }
   })
-  $text = [regex]::Replace($text, '\{\{site\.([a-zA-Z]+)\}\}', [System.Text.RegularExpressions.MatchEvaluator]{
+  # conditionals on site.json values: {{#site.path}}shown when non-empty{{/site.path}}  {{^site.path}}shown when empty{{/site.path}}
+  $condRx = [regex]'(?s)\{\{([#^])site\.([a-zA-Z0-9_.\-]+)\}\}(.*?)\{\{/site\.\2\}\}'
+  for ($i = 0; $i -lt 4; $i++) {
+    if (-not $condRx.IsMatch($text)) { break }
+    $text = $condRx.Replace($text, [System.Text.RegularExpressions.MatchEvaluator]{
+      param($m)
+      $v = Get-SitePath $m.Groups[2].Value
+      $has = ($null -ne $v) -and ([string]$v -ne '') -and -not (($v -is [bool]) -and -not $v)
+      if (($m.Groups[1].Value -eq '#') -eq $has) { return $m.Groups[3].Value } else { return '' }
+    })
+  }
+  # values: {{site.path}} or {{site.path|money}}; dotted paths walk objects and arrays (socials fall back for short keys)
+  $text = [regex]::Replace($text, '\{\{site\.([a-zA-Z0-9_.\-]+)(?:\|(money|raw))?\}\}', [System.Text.RegularExpressions.MatchEvaluator]{
     param($m) $k = $m.Groups[1].Value
     if ($k -eq 'domain') { return $domain }
-    $p = $site.PSObject.Properties[$k]
-    if ($p -and ($p.Value -is [string])) { return [string]$p.Value }
-    $s = $site.socials.PSObject.Properties[$k]
-    if ($s) { return [string]$s.Value }
-    throw "Unknown site token: $k"
+    $v = Get-SitePath $k
+    if ($null -eq $v -and $k -notmatch '\.') { $s = $site.socials.PSObject.Properties[$k]; if ($s) { $v = $s.Value } }
+    if ($null -eq $v) { throw "Unknown site token: $k" }
+    if ($m.Groups[2].Success -and $m.Groups[2].Value -eq 'money') { return (Money $v) }
+    return [string]$v
   })
   $text = $text.Replace('{{base}}', $base).Replace('{{year}}', (Get-Date).Year.ToString()).Replace('{{host}}', $siteHost)
   return $text
@@ -226,6 +251,26 @@ foreach ($j in $jobs) {
   if (-not $j.copy) { continue }
   $png = Join-Path $renderDir $j.out
   if (Test-Path $png) { Copy-Item $png (Join-Path $docs $j.out) -Force } else { Write-Warning ("Missing {0}; run build.ps1 without -SkipRender." -f $j.out) }
+}
+# downloadable PDFs (lead magnet) printed from src\downloads\*.html with Edge; kept in source\render between builds
+$dlSrc = Join-Path $src 'downloads'
+if (Test-Path $dlSrc) {
+  Get-ChildItem $dlSrc -Filter *.html | ForEach-Object {
+    $pdfName = $_.BaseName + '.pdf'
+    $pdfOut = Join-Path $renderDir $pdfName
+    if (-not $SkipRender) {
+      $edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+      if ($edge) {
+        $tmp = Join-Path $renderDir $_.Name
+        Write-Text $tmp (Expand-Site (Read-Text $_.FullName))
+        if (Test-Path $pdfOut) { Remove-Item $pdfOut -Force }
+        $args = @('--headless=new', '--disable-gpu', '--no-first-run', '--hide-scrollbars', '--virtual-time-budget=5000', '--no-pdf-header-footer', "--print-to-pdf=$pdfOut", ('file:///' + $tmp.Replace('\', '/')))
+        Start-Process -FilePath $edge -ArgumentList $args -Wait -NoNewWindow -RedirectStandardError (Join-Path $renderDir 'edge.log') | Out-Null
+        if (Test-Path $pdfOut) { Log ("  printed {0}" -f $pdfName) } else { Write-Warning ("Edge did not produce {0}" -f $pdfName) }
+      }
+    }
+    if (Test-Path $pdfOut) { Ensure-Dir (Join-Path $docs 'downloads'); Copy-Item $pdfOut (Join-Path $docs ('downloads\' + $pdfName)) -Force }
+  }
 }
 if (Test-Path $lavaPng) {
   Save-Resized $lavaPng (Join-Path $docs 'img\lava.jpg') 1920 80

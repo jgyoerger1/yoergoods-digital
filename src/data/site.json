@@ -76,12 +76,14 @@
         "one": 1200,
         "small": 2400,
         "full": 4200,
-        "large": 6500
+        "large": 6500,
+        "portfolio": 750
       },
       "situationMultiplier": {
         "none": 1,
         "refresh": 0.85,
-        "rebuild": 1
+        "rebuild": 1,
+        "pro": 1
       },
       "features": {
         "gallery": 300,
@@ -99,6 +101,71 @@
       },
       "rangeLow": 0.9,
       "rangeHigh": 1.15
+    },
+    "portfolio": {
+      "from": 750
+    }
+  },
+  "newsletterEndpoint": "",
+  "ai": {
+    "powerHour": {
+      "price": 129,
+      "minutes": 60,
+      "bookUrl": ""
+    },
+    "teamTuneUp": {
+      "price": 299,
+      "minutes": 90,
+      "seats": 4,
+      "bookUrl": ""
+    },
+    "bundlePrice": 79
+  },
+  "guides": {
+    "copilot-fully-used": {
+      "title": "Copilot, Fully Used",
+      "short": "Copilot",
+      "price": 29,
+      "buyUrl": "",
+      "tag": "Microsoft 365",
+      "promise": "Everyday Microsoft 365 Copilot for people who have it at work and use a tenth of it.",
+      "pages": "32"
+    },
+    "claude-code-for-non-developers": {
+      "title": "Claude Code for Non-Developers",
+      "short": "Claude Code",
+      "price": 39,
+      "buyUrl": "",
+      "tag": "Build things",
+      "promise": "Build real tools, pages and automations by describing them, without becoming a programmer.",
+      "pages": "40"
+    },
+    "impress-your-boss-with-ai": {
+      "title": "Impress Your Boss with AI",
+      "short": "Office workflows",
+      "price": 29,
+      "buyUrl": "",
+      "tag": "Career",
+      "promise": "Ten office workflows that make you faster and more visible: status reports, minutes, decks, plans.",
+      "pages": "28"
+    },
+    "ai-for-small-business-owners": {
+      "title": "AI for Small Business Owners",
+      "short": "Small business",
+      "price": 29,
+      "buyUrl": "",
+      "tag": "Business",
+      "promise": "Quotes, review replies, social posts and estimates in minutes, with prompts you can paste today.",
+      "pages": "30"
+    },
+    "one-person-service-business-with-ai": {
+      "title": "Start a One-Person Service Business with AI",
+      "short": "Side business",
+      "price": 39,
+      "buyUrl": "",
+      "tag": "Honest playbook",
+      "promise": "The real version of making money with AI: pick a service, deliver it well, let AI do the lifting.",
+      "pages": "36"
     }
   }
 }

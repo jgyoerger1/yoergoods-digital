@@ -1,0 +1,201 @@
+title: AI Help: One-Hour Sessions and Plain-English Guides | Yoergoods Digital
+description: Get more from the AI you already pay for. One-hour sessions for you or your small team on Microsoft 365 Copilot, Claude and ChatGPT, plus practical guides to Copilot, Claude Code and office AI. Taught by a technology director who uses them daily.
+path: /ai/
+ogtitle: Get more from the AI you already pay for
+bodyclass: page-ai
+---
+<section class="page-hero">
+  <div class="container">
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="{{base}}/">Home</a></li><li aria-current="page">AI help</li></ol>
+    <p class="eyebrow">AI help</p>
+    <h1 class="h1">Get more from the AI you already pay for.</h1>
+    <p class="lede">Most people have Copilot, ChatGPT or Claude sitting in a tab and use a tenth of it. In one hour, working on your real tasks, we set up the three or four workflows that will save you time every week. No theory, no hype, and you keep the recording.</p>
+    <div class="hero__cta">
+      <a class="btn btn--gold btn--lg" href="#sessions">Book a session</a>
+      <a class="btn btn--ghost btn--lg" href="#guides">Browse the guides</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SESSIONS ===================== -->
+<section class="section--tight" id="sessions" aria-labelledby="sessions-title">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Live sessions</p>
+      <h2 class="h2" id="sessions-title">One hour. Your real work. Workflows you'll actually use.</h2>
+    </div>
+    <div class="sessions" data-reveal-group>
+      <article class="session session--hot">
+        <p class="eyebrow">For one person</p>
+        <h3>AI Power Hour</h3>
+        <div class="session__price"><strong>{{site.ai.powerHour.price|money}}</strong><small>{{site.ai.powerHour.minutes}} minutes, 1:1 on video</small></div>
+        <p>Bring the three things you do every week that eat your time. We set them up in the tool you already have, build the prompts together, and you leave with them saved and working.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Copilot, Claude or ChatGPT, whichever you have</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Recording plus a one-page summary of your prompts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Two weeks of email follow-up questions included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>If the hour wasn't worth it, say so and it's refunded</li>
+        </ul>
+        {{#site.ai.powerHour.bookUrl}}<a class="btn btn--gold" href="{{site.ai.powerHour.bookUrl}}" target="_blank" rel="noopener">Pick a time, {{site.ai.powerHour.price|money}}</a>{{/site.ai.powerHour.bookUrl}}
+        {{^site.ai.powerHour.bookUrl}}<a class="btn btn--gold" href="mailto:{{site.email}}?subject=Book%20an%20AI%20Power%20Hour&body=Hi%20Jordan%2C%20I%27d%20like%20to%20book%20an%20AI%20Power%20Hour.%20I%20mainly%20use%3A%20%0AThe%20three%20things%20that%20eat%20my%20time%3A%20%0A">Book by email, {{site.ai.powerHour.price|money}}</a>{{/site.ai.powerHour.bookUrl}}
+      </article>
+      <article class="session">
+        <p class="eyebrow">For a small team</p>
+        <h3>AI Tune-Up for your business</h3>
+        <div class="session__price"><strong>{{site.ai.teamTuneUp.price|money}}</strong><small>{{site.ai.teamTuneUp.minutes}} minutes, up to {{site.ai.teamTuneUp.seats}} people</small></div>
+        <p>For an owner and the people who answer the phone, write the quotes and post the photos. We map where the hours go and set up AI for the three jobs that matter most: quotes, customer replies and marketing.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Works with the free tools or what you already pay for</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>A shared prompt library your team can paste from</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Simple guardrails: what never goes into an AI tool</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pairs well with a website project; ask about bundling</li>
+        </ul>
+        {{#site.ai.teamTuneUp.bookUrl}}<a class="btn btn--ghost" href="{{site.ai.teamTuneUp.bookUrl}}" target="_blank" rel="noopener">Pick a time, {{site.ai.teamTuneUp.price|money}}</a>{{/site.ai.teamTuneUp.bookUrl}}
+        {{^site.ai.teamTuneUp.bookUrl}}<a class="btn btn--ghost" href="mailto:{{site.email}}?subject=Book%20an%20AI%20Tune-Up%20for%20my%20team&body=Hi%20Jordan%2C%20we%27re%20a%20team%20of%20__%20and%20we%27d%20like%20an%20AI%20Tune-Up.%20What%20we%20do%3A%20%0A">Book by email, {{site.ai.teamTuneUp.price|money}}</a>{{/site.ai.teamTuneUp.bookUrl}}
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="section section--light" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">How a session works</p>
+      <h2 class="h2" id="how-title">Three steps, no homework beyond your real work.</h2>
+    </div>
+    <ol class="steps-mini" data-reveal-group style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <li><strong>Pick a time</strong><span>Book and pay in one step. You get a short form asking which tools you have and the three tasks that eat your week.</span></li>
+      <li><strong>We work, live</strong><span>Screen shared, your accounts, your documents. We build each workflow until it runs, then save it where you'll find it again.</span></li>
+      <li><strong>You keep everything</strong><span>The recording, a one-page prompt sheet in your words, and two weeks of email follow-up for the snags that show up later.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== GUIDES ===================== -->
+<section class="section" id="guides" aria-labelledby="guides-title">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Guides</p>
+      <h2 class="h2" id="guides-title">Plain-English guides, written from daily use.</h2>
+      <p class="lede">Each one does a single job, comes as a PDF with a copy-and-paste prompt library, and is updated for a year as the tools change. Buy them one at a time, or all five for {{site.ai.bundlePrice|money}}.</p>
+    </div>
+    <div class="guides" data-reveal-group>
+      <a class="guide" href="{{base}}/guides/copilot-fully-used/">
+        <div class="guide__cover"><i>{{site.guides.copilot-fully-used.tag}}</i><span>Copilot, Fully Used</span></div>
+        <h3>{{site.guides.copilot-fully-used.title}}</h3>
+        <p>{{site.guides.copilot-fully-used.promise}}</p>
+        <div class="guide__meta"><strong>{{site.guides.copilot-fully-used.price|money}}</strong><span>PDF + prompt library</span></div>
+      </a>
+      <a class="guide" href="{{base}}/guides/claude-code-for-non-developers/">
+        <div class="guide__cover"><i>{{site.guides.claude-code-for-non-developers.tag}}</i><span>Claude Code for Non-Developers</span></div>
+        <h3>{{site.guides.claude-code-for-non-developers.title}}</h3>
+        <p>{{site.guides.claude-code-for-non-developers.promise}}</p>
+        <div class="guide__meta"><strong>{{site.guides.claude-code-for-non-developers.price|money}}</strong><span>PDF + prompt library</span></div>
+      </a>
+      <a class="guide" href="{{base}}/guides/impress-your-boss-with-ai/">
+        <div class="guide__cover"><i>{{site.guides.impress-your-boss-with-ai.tag}}</i><span>Impress Your Boss with AI</span></div>
+        <h3>{{site.guides.impress-your-boss-with-ai.title}}</h3>
+        <p>{{site.guides.impress-your-boss-with-ai.promise}}</p>
+        <div class="guide__meta"><strong>{{site.guides.impress-your-boss-with-ai.price|money}}</strong><span>PDF + prompt library</span></div>
+      </a>
+      <a class="guide" href="{{base}}/guides/ai-for-small-business-owners/">
+        <div class="guide__cover"><i>{{site.guides.ai-for-small-business-owners.tag}}</i><span>AI for Small Business Owners</span></div>
+        <h3>{{site.guides.ai-for-small-business-owners.title}}</h3>
+        <p>{{site.guides.ai-for-small-business-owners.promise}}</p>
+        <div class="guide__meta"><strong>{{site.guides.ai-for-small-business-owners.price|money}}</strong><span>PDF + prompt library</span></div>
+      </a>
+      <a class="guide" href="{{base}}/guides/one-person-service-business-with-ai/">
+        <div class="guide__cover"><i>{{site.guides.one-person-service-business-with-ai.tag}}</i><span>One-Person Service Business with AI</span></div>
+        <h3>{{site.guides.one-person-service-business-with-ai.title}}</h3>
+        <p>{{site.guides.one-person-service-business-with-ai.promise}}</p>
+        <div class="guide__meta"><strong>{{site.guides.one-person-service-business-with-ai.price|money}}</strong><span>PDF + prompt library</span></div>
+      </a>
+      <div class="guide" style="justify-content:center;background:linear-gradient(135deg,var(--navy-3),var(--navy-2))">
+        <p class="eyebrow">All five</p>
+        <h3 style="margin:10px 0 6px">The bundle, {{site.ai.bundlePrice|money}}</h3>
+        <p>Every guide, every update for a year, and the full prompt library in one download. Launching with the first guide.</p>
+        <a class="link" href="{{base}}/guides/">See all guides <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LEAD MAGNET ===================== -->
+<section class="section--tight" id="free" aria-labelledby="free-title">
+  <div class="container">
+    <div class="lead" data-reveal>
+      <div>
+        <p class="eyebrow">Free, one page</p>
+        <h3 id="free-title">Ten AI prompts that pay for themselves at work.</h3>
+        <p>The ten I use most, written out in full with a line on why each works. Paste them into Copilot, Claude or ChatGPT today. Leave an email and I'll also let you know when each guide is ready.</p>
+      </div>
+      <div>
+        <form data-lead data-endpoint="{{site.newsletterEndpoint}}" data-tag="ten-prompts" data-email="{{site.email}}" data-subject="Keep me posted on the guides" novalidate>
+          <label class="field__label" for="lead-email">Your email</label>
+          <div class="lead__row"><input type="email" id="lead-email" name="email" placeholder="you@company.com" required autocomplete="email"><button class="btn btn--gold" type="submit">Send me the prompts</button></div>
+          <small>No spam, no daily emails. A note when a guide launches and the occasional useful thing. Unsubscribe any time.</small>
+        </form>
+        <div class="lead__done" hidden>
+          <strong>Here are your prompts.</strong>
+          <a class="btn btn--gold" href="{{base}}/downloads/yoergoods-ten-ai-prompts.pdf" target="_blank" rel="noopener">Open the one-page PDF</a>
+          <small data-when="connected" hidden>You're on the list for guide launches too.</small>
+          <small data-when="fallback" hidden>The mailing list isn't wired up yet. <a data-mailto href="mailto:{{site.email}}">Send me a one-line email</a> and I'll let you know personally when the guides land.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY ME ===================== -->
+<section class="section section--light" aria-labelledby="why-title">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Who's teaching</p>
+      <h2 class="h2" id="why-title">A technology director who uses these tools all day, not a course seller.</h2>
+      <p class="lede">I run enterprise technology programs for a living, build websites and tools with Claude Code on the side, and have taught Copilot to rooms of people who had it and didn't use it. Everything here comes from what actually stuck.</p>
+    </div>
+    <ul class="bullets-2" data-reveal-group>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Practical over clever.</strong> If a workflow needs a 400-word prompt to work, it won't survive a Tuesday. We build short ones you'll reuse.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Honest about limits.</strong> You'll learn where these tools are wrong confidently, and what should never be pasted into one.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Tool-agnostic.</strong> Copilot inside Microsoft 365, Claude, ChatGPT. The patterns transfer; the buttons differ, and I know where they are.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Built, not just talked about.</strong> The websites in my <a href="{{base}}/work/">portfolio</a> were built with the exact methods in the Claude Code guide.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section faq" aria-labelledby="aifaq-title">
+  <div class="container">
+    <div class="section__head" data-reveal><p class="eyebrow">Questions</p><h2 class="h2" id="aifaq-title">Before you book.</h2></div>
+    <div class="faq__wrap faq__wrap--dark" data-reveal>
+      <div class="faq__item"><h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="af-1">Do I need a paid AI subscription?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="faq__a" id="af-1"><div><p>No. The free tiers of Claude and ChatGPT cover most of what we'll do, and Microsoft 365 Copilot Chat is included with many work accounts. If you already pay for something, we'll use that. If a paid plan would genuinely earn its keep for you, I'll say which one and why.</p></div></div></div>
+      <div class="faq__item"><h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="af-2">What should I prepare?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="faq__a" id="af-2"><div><p>Only the three tasks that eat your week and a few real examples of them: last month's status report, a typical customer email, the deck you dread. We work on those, not on made-up exercises.</p></div></div></div>
+      <div class="faq__item"><h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="af-3">Is my information safe in the session?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="faq__a" id="af-3"><div><p>We use your accounts on your screen, so nothing is copied to me. Part of every session is a two-minute rule of thumb on what never goes into an AI tool (customer personal data, passwords, anything under NDA) and how to use the tools' privacy settings.</p></div></div></div>
+      <div class="faq__item"><h3><button class="faq__q" type="button" aria-expanded="false" aria-controls="af-4">What if it isn't useful?<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button></h3><div class="faq__a" id="af-4"><div><p>Tell me within a week and the session is refunded in full. Guides come with the same promise: if one doesn't deliver what the page says, email me for a refund.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta">
+  <div class="container">
+    <div class="cta__box" data-reveal="scale">
+      <h2 class="h2">An hour that pays for itself by Friday.</h2>
+      <p class="lede">Book a Power Hour for yourself or a Tune-Up for your team. Come with real work, leave with it done faster.</p>
+      <div class="cta__row"><a class="btn btn--gold btn--lg" href="#sessions">Book a session</a><a class="btn btn--ghost btn--lg" href="{{base}}/guides/">Browse the guides</a></div>
+    </div>
+  </div>
+</section>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{site.domain}}{{base}}/"},{"@type":"ListItem","position":2,"name":"AI help","item":"{{site.domain}}{{base}}/ai/"}]},
+ {"@type":"Service","name":"AI Power Hour","serviceType":"AI training session","provider":{"@id":"{{site.domain}}{{base}}/#org"},"description":"One-hour one-to-one session setting up practical AI workflows in Microsoft 365 Copilot, Claude or ChatGPT.","offers":{"@type":"Offer","price":"{{site.ai.powerHour.price}}","priceCurrency":"USD"}},
+ {"@type":"Service","name":"AI Tune-Up for small teams","serviceType":"AI training session","provider":{"@id":"{{site.domain}}{{base}}/#org"},"description":"Ninety-minute session for a small business owner and up to four staff: quotes, customer replies and marketing with AI.","offers":{"@type":"Offer","price":"{{site.ai.teamTuneUp.price}}","priceCurrency":"USD"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Do I need a paid AI subscription?","acceptedAnswer":{"@type":"Answer","text":"No. Free tiers of Claude and ChatGPT cover most of it, and Microsoft 365 Copilot Chat is included with many work accounts. If a paid plan would earn its keep, you'll hear which one and why."}},
+  {"@type":"Question","name":"What should I prepare?","acceptedAnswer":{"@type":"Answer","text":"The three tasks that eat your week and real examples of them. Sessions work on your actual tasks, not exercises."}},
+  {"@type":"Question","name":"Is my information safe in the session?","acceptedAnswer":{"@type":"Answer","text":"You use your own accounts on your own screen; nothing is copied. Each session includes a short rule of thumb on what never goes into an AI tool."}},
+  {"@type":"Question","name":"What if it isn't useful?","acceptedAnswer":{"@type":"Answer","text":"Say so within a week and the session is refunded in full. Guides carry the same promise."}}
+ ]}
+]}
+</script>

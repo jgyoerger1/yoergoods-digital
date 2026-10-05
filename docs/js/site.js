@@ -15,6 +15,7 @@
   try { finePointer = matchMedia('(pointer: fine)').matches; } catch (e) {}
 
   /* ---------- nav ---------- */
+  var here = location.pathname.replace(/index\.html$/, '');
   var nav = $('.nav');
   var onScroll = function () { if (nav) nav.classList.toggle('nav--scrolled', (window.scrollY || window.pageYOffset || 0) > 24); };
   onScroll();
@@ -35,8 +36,42 @@
     window.addEventListener('resize', function () { if (window.innerWidth > 980) closeMenu(); });
   }
 
-  // mark the current page in the nav
-  var here = location.pathname.replace(/index\.html$/, '');
+  /* ---------- services dropdown (click/tap + keyboard; hover handled in CSS) ---------- */
+  $$('.nav__dd').forEach(function (dd) {
+    var btn = $('.nav__dd-btn', dd);
+    var set = function (open) { dd.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+    btn.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
+    dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
+    document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
+    var mine = ['/portfolio-websites/', '/ai/', '/guides/'].some(function (p) { return here.indexOf(p) > -1; });
+    if (mine) btn.setAttribute('aria-current', 'page');
+  });
+
+  /* ---------- lead magnet / notify forms: post to the list endpoint when configured, then show the download ---------- */
+  $$('form[data-lead]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      if (!email || !email.checkValidity()) { if (email) email.reportValidity(); return; }
+      var endpoint = form.getAttribute('data-endpoint') || '';
+      var done = form.parentNode.querySelector('.lead__done');
+      var finish = function (connected) {
+        form.hidden = true;
+        if (!done) return;
+        done.hidden = false;
+        $$('[data-when="connected"]', done).forEach(function (el) { el.hidden = !connected; });
+        $$('[data-when="fallback"]', done).forEach(function (el) { el.hidden = connected; });
+        var ml = $('[data-mailto]', done);
+        if (ml) ml.href = 'mailto:' + (form.getAttribute('data-email') || '') + '?subject=' + encodeURIComponent(form.getAttribute('data-subject') || 'Keep me posted') + '&body=' + encodeURIComponent('Please keep me posted at ' + email.value.trim() + '.');
+      };
+      if (!endpoint) { finish(false); return; }   // no list connected yet: be honest and offer the email route
+      var body = new URLSearchParams(); body.set('email', email.value.trim());
+      var tag = form.getAttribute('data-tag'); if (tag) body.set('tag', tag);
+      fetch(endpoint, { method: 'POST', mode: 'no-cors', body: body }).then(function () { finish(true); }, function () { finish(false); });
+    });
+  });
+
+  // mark the current page in the nav (here is declared above, before the dropdown code uses it)
   $$('.nav__links a, .footer__col a').forEach(function (a) {
     var u; try { u = new URL(a.getAttribute('href'), location.href); } catch (e) { return; }
     if (!u.hash && u.pathname.replace(/index\.html$/, '') === here && u.pathname !== '/') a.setAttribute('aria-current', 'page');

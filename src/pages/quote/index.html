@@ -23,10 +23,11 @@ scripts: quote
             <span class="qstep__k">Step 1 of 7</span>
             <legend class="qstep__t">Where are you starting from?</legend>
             <p>There's no wrong answer. This just tells me whether we're building from scratch or working with what you have.</p>
-            <div class="opts opts--3">
+            <div class="opts">
               <label class="opt"><input type="radio" name="situation" value="none"><span class="opt__body"><span class="opt__title">I don't have a website</span><span class="opt__desc">Maybe a Facebook page, maybe just a phone number.</span></span></label>
               <label class="opt"><input type="radio" name="situation" value="refresh"><span class="opt__body"><span class="opt__title">I have one, it needs a refresh</span><span class="opt__desc">Keep the content, fix the look, speed and phone layout.</span></span></label>
               <label class="opt"><input type="radio" name="situation" value="rebuild"><span class="opt__body"><span class="opt__title">I have one, I want to start over</span><span class="opt__desc">It's not worth saving. New site, same business.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="pro"><span class="opt__body"><span class="opt__title">I'm a professional, not a business</span><span class="opt__desc">A portfolio site to stand out to recruiters and clients.</span></span></label>
             </div>
             <div class="field" data-if-site hidden>
               <label for="currentSite">Your current website</label>
@@ -62,6 +63,7 @@ scripts: quote
             <legend class="qstep__t">How big a site are we talking?</legend>
             <p>Think in pages. If you're not sure, Small is the right guess for most local businesses.</p>
             <div class="opts">
+              <label class="opt"><input type="radio" name="size" value="portfolio"><span class="opt__body"><span class="opt__title">Portfolio site</span><span class="opt__desc">One page for a person: your story, 4 to 6 work samples, resume download, contact.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="one"><span class="opt__body"><span class="opt__title">One page</span><span class="opt__desc">Everything on a single scrolling page. Perfect for a new business or a single service.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="small"><span class="opt__body"><span class="opt__title">Small site</span><span class="opt__desc">Up to five pages: home, services, about, work, contact.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="full"><span class="opt__body"><span class="opt__title">Full site</span><span class="opt__desc">Six to twelve pages, usually one per service or location, written to be found.</span></span></label>
