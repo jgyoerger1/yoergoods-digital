@@ -45,15 +45,32 @@ Or double-click `Build Site.cmd` and `Preview Site.cmd`.
   project repos publish under it (All Paws works the same way). `Publish.cmd` = build + commit + push; live
   in a minute or two.
 
-## Moving to the custom domain (when yoergoodsdigital.com is registered)
+## Moving to the custom domain
 
-1. In `src\data\site.json` set `"domain": "https://www.yoergoodsdigital.com"` and `"basePath": ""`.
-   The build then writes `docs\CNAME`, and every canonical, Open Graph, sitemap and structured-data URL follows.
-2. DNS at the registrar: `www` CNAME -> `jgyoerger1.github.io`; apex A records -> 185.199.108.153,
-   185.199.109.153, 185.199.110.153, 185.199.111.153 (same recipe as yoergerrenovations.com).
-3. Run `Publish.cmd`. In the repo Settings > Pages, confirm the custom domain shows and tick Enforce HTTPS once
-   the certificate is issued (usually within the hour).
-4. The old jordanyoerger.com/yoergoods-digital/ address will 301 to the new domain automatically.
+Checked 2026-10-09: yoergoodsdigital.com, yoergoods.com, yoergoods.digital, yoergoods.co and yoergoods.net were all
+unregistered. Plan: register **yoergoodsdigital.com** (the site, email, and every mention already use it) and
+**yoergoods.com** (hold it for the umbrella brand; forward it later).
+
+1. **Register** at Cloudflare Registrar (dash.cloudflare.com > Domain Registration > Register Domains; about $11
+   a year for a .com, at cost, auto-renew on, WHOIS privacy included). Squarespace Domains or Porkbun work too.
+2. **DNS records** (Cloudflare: DNS > Records; set each to "DNS only", the grey cloud, so GitHub can issue the
+   certificate):
+   - `CNAME  www  ->  jgyoerger1.github.io`
+   - `A  @  ->  185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+3. **Wait a few minutes**, then from the repo root:
+   `powershell -NoProfile -ExecutionPolicy Bypass -File tools\go-live-domain.ps1 -Check`
+   until it reports both records OK.
+4. **Switch**: `powershell -NoProfile -ExecutionPolicy Bypass -File tools\go-live-domain.ps1`
+   It sets domain/basePath in site.json, rebuilds (writes `docs\CNAME`, re-renders the social image with the new
+   host), commits and pushes, sets the custom domain on GitHub Pages, waits for the certificate, enforces HTTPS and
+   checks the live URLs. If the certificate is still pending it says so; run again later with `-EnableHttps`.
+5. The old jordanyoerger.com/yoergoods-digital/ address 301s to the new domain automatically. Add the new property
+   in Google Search Console and submit `/sitemap.xml`.
+6. **Email, free, right away**: with DNS at Cloudflare, Email Routing (Email > Email Routing) forwards
+   hello@yoergoodsdigital.com to your personal inbox in two clicks. Replies come from your personal address until
+   you add a real mailbox (Google Workspace or Microsoft 365, about $6 to $7 a month) later.
+7. If you'd rather host on Cloudflare Pages than GitHub Pages, see `C:\Dev\yoergoods-business\docs\cloudflare-hosting.md`;
+   the site.json change in step 4 is the same, and `Publish.cmd` keeps working either way.
 
 ## Before going live (checklist)
 
