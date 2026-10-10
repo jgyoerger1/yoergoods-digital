@@ -40,10 +40,13 @@ Or double-click `Build Site.cmd` and `Preview Site.cmd`.
 
 ## Where it lives
 
+- Live: **https://www.yoergoodsdigital.com/** since 2026-10-09 (domain registered at Squarespace Domains; DNS there: four A
+  records @ -> 185.199.108-111.153, CNAME www -> jgyoerger1.github.io; Squarespace Defaults preset removed).
+  The apex and the old jordanyoerger.com/yoergoods-digital/ address 301 to www. HTTPS enforced.
 - Repo: https://github.com/jgyoerger1/yoergoods-digital (public, GitHub Pages from `main` / `docs`).
-- Live: https://jordanyoerger.com/yoergoods-digital/ . Jordan's user site owns the jordanyoerger.com domain, so
-  project repos publish under it (All Paws works the same way). `Publish.cmd` = build + commit + push; live
-  in a minute or two.
+  `Publish.cmd` = build + commit + push; live in a minute or two.
+- Headless renders (social image, lava texture, icon, lead-magnet PDF) use Chrome first; Edge 150+ headless
+  stopped writing files on this laptop. Set YG_BROWSER to force a browser.
 
 ## Moving to the custom domain
 

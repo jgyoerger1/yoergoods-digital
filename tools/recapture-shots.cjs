@@ -9,7 +9,7 @@ const sites = [
   ['jordan-portfolio', 'https://jordanyoerger.com/']
 ];
 (async () => {
-  const browser = await puppeteer.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true, args: ['--no-first-run', '--hide-scrollbars'] });
+  const browser = await puppeteer.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true, args: ['--no-first-run', '--hide-scrollbars'] });
   for (const [name, url] of sites) {
     for (const [suffix, vp] of [['desktop', { width: 1440, height: 900 }], ['mobile', { width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 1 }]]) {
       const page = await browser.newPage();
