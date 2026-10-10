@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jordanyoerger.com/yoergoods-digital/sitemap.xml
+Sitemap: https://www.yoergoodsdigital.com/sitemap.xml

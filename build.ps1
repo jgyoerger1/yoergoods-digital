@@ -216,6 +216,12 @@ $xml += '</urlset>' + "`n"
 Write-Text (Join-Path $docs 'sitemap.xml') $xml
 Log ("Sitemap: {0} urls" -f $sitemap.Count)
 
+# Headless browser for renders: Chrome first (Edge 150+ headless detaches and writes late on this machine), Edge as fallback.
+# Set YG_BROWSER to a full path to force one.
+function Find-Browser {
+  $c = @($env:YG_BROWSER, "$env:ProgramFiles\Google\Chrome\Application\chrome.exe", "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe", "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe", "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe")
+  return ($c | Where-Object { $_ -and (Test-Path $_) } | Select-Object -First 1)
+}
 # ---------------------------------------------------------------- social image + touch icon (Edge headless)
 # Rendered into source\render\ (kept between builds) and copied into docs\. -SkipRender reuses the last render.
 $renderDir = Join-Path $root 'source\render'
@@ -229,7 +235,7 @@ $jobs = @(
 $lavaPng = Join-Path $renderDir 'lava.png'
 $srcJsUrl = 'file:///' + (Join-Path $src 'js').Replace('\', '/')
 if (-not $SkipRender) {
-  $edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+  $edge = Find-Browser
   if ($edge) {
     foreach ($j in $jobs) {
       $tmp = Join-Path $renderDir $j.in
@@ -243,9 +249,9 @@ if (-not $SkipRender) {
       $args = @('--headless=new', '--hide-scrollbars', '--no-first-run', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--allow-file-access-from-files', "--window-size=$($j.size)", '--virtual-time-budget=6000', "--screenshot=$outPng", $url)
       $errLog = Join-Path $renderDir 'edge.log'
       $p = Start-Process -FilePath $edge -ArgumentList $args -Wait -PassThru -NoNewWindow -RedirectStandardError $errLog
-      if (Test-Path $outPng) { Log ("  rendered {0}" -f $j.out) } else { Write-Warning ("Edge did not produce {0}" -f $j.out) }
+      if (Test-Path $outPng) { Log ("  rendered {0} ({1})" -f $j.out, [IO.Path]::GetFileNameWithoutExtension($edge)) } else { Write-Warning ("Edge did not produce {0}" -f $j.out) }
     }
-  } else { Write-Warning 'Microsoft Edge not found; lava.jpg, og-image.png and apple-touch-icon.png were not rendered.' }
+  } else { Write-Warning 'No Chrome or Edge found; lava.jpg, og-image.png and apple-touch-icon.png were not rendered.' }
 }
 foreach ($j in $jobs) {
   if (-not $j.copy) { continue }
@@ -259,7 +265,7 @@ if (Test-Path $dlSrc) {
     $pdfName = $_.BaseName + '.pdf'
     $pdfOut = Join-Path $renderDir $pdfName
     if (-not $SkipRender) {
-      $edge = @("${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe", "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe") | Where-Object { Test-Path $_ } | Select-Object -First 1
+      $edge = Find-Browser
       if ($edge) {
         $tmp = Join-Path $renderDir $_.Name
         Write-Text $tmp (Expand-Site (Read-Text $_.FullName))

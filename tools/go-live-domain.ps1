@@ -14,7 +14,8 @@ param(
   [string]$GithubUser = 'jgyoerger1',
   [switch]$Check,
   [switch]$EnableHttps,
-  [switch]$Force
+  [switch]$Force,
+  [string]$CommitTrailer = ''
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
@@ -79,7 +80,9 @@ if (-not $EnableHttps) {
   Push-Location $root
   try {
     git add -A 2>$null | Out-Null
-    git -c user.name="Jordan Yoerger" -c user.email="jordan.yoerger@greatdayimprovements.com" commit -q -m "Go live on $Domain" 2>$null | Out-Null
+    $msg = "Go live on $Domain"
+    if ($CommitTrailer) { $msg = $msg + "`n`n" + $CommitTrailer }
+    git -c user.name="Jordan Yoerger" -c user.email="jordan.yoerger@greatdayimprovements.com" commit -q -m $msg 2>$null | Out-Null
     git push -q origin main 2>$null
     Log ("pushed " + (git rev-parse --short HEAD))
   } finally { Pop-Location }
