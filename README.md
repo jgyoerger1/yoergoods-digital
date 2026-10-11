@@ -144,7 +144,7 @@ the script. Then run `build.ps1`.
   MailerLite and Kit have equivalents) and then show the PDF. With the endpoint empty they still hand over the
   PDF but say honestly that the list isn't connected and offer a one-line email instead.
 - `/portfolio-websites/` targets professionals and job seekers; `pricing.portfolio.from` sets the price, and the
-  quote builder has a "professional, not a business" starting point plus a "Portfolio site" size ($750 base).
+  quote builder has a "professional, not a business" starting point plus a "Portfolio site" size ($500 base).
 - Services is now a dropdown (Websites, Portfolio sites, AI help, Guides) on desktop and grouped in the mobile menu.
 
 ## SEO built in
