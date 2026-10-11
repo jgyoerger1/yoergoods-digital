@@ -69,9 +69,7 @@ unregistered. Plan: register **yoergoodsdigital.com** (the site, email, and ever
    checks the live URLs. If the certificate is still pending it says so; run again later with `-EnableHttps`.
 5. The old jordanyoerger.com/yoergoods-digital/ address 301s to the new domain automatically. Add the new property
    in Google Search Console and submit `/sitemap.xml`.
-6. **Email, free, right away**: with DNS at Cloudflare, Email Routing (Email > Email Routing) forwards
-   hello@yoergoodsdigital.com to your personal inbox in two clicks. Replies come from your personal address until
-   you add a real mailbox (Google Workspace or Microsoft 365, about $6 to $7 a month) later.
+6. **Email**: the site uses jgyoerger@gmail.com everywhere (site.json `email`) since 2026-10-11. A Squarespace forwarding rule for hello@yoergoodsdigital.com also exists but nothing on the site uses it.
 7. If you'd rather host on Cloudflare Pages than GitHub Pages, see `C:\Dev\yoergoods-business\docs\cloudflare-hosting.md`;
    the site.json change in step 4 is the same, and `Publish.cmd` keeps working either way.
 
@@ -79,7 +77,7 @@ unregistered. Plan: register **yoergoodsdigital.com** (the site, email, and ever
 
 1. **Domain.** `yoergoodsdigital.com` was not registered as of 2026-09-30. Register it (or pick another) and
    follow "Moving to the custom domain" above. Until then the site runs at jordanyoerger.com/yoergoods-digital/.
-2. **Email.** Set `email` in site.json (currently the placeholder `hello@yoergoodsdigital.com`). It appears in
+2. **Email.** `email` in site.json is jgyoerger@gmail.com. It appears in
    the footer, CTAs and the mailto fallback of the quote builder.
 3. **Quote inbox.** Follow the setup notes at the top of `tools\quote-mailer.gs` (Apps Script web app, about
    ten minutes). Paste the `/exec` URL into `quoteEndpoint` in site.json and rebuild. Until then the quote

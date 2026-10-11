@@ -14,7 +14,7 @@
  * same URL keeps working.
  */
 
-var OWNER_EMAIL = 'hello@yoergoodsdigital.com';
+var OWNER_EMAIL = 'jgyoerger@gmail.com';
 var FROM_NAME = 'Yoergoods Digital website';
 var MAX_FILES = 8;
 var MAX_TOTAL_BYTES = 20 * 1024 * 1024;   // Gmail caps a message at 25 MB
