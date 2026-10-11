@@ -88,6 +88,43 @@
     });
   });
 
+  /* ---------- email links: many visitors have no desktop email app, so a mailto click can silently do nothing.
+     Copy the address and offer Gmail as a way through. Links marked data-mail-own handle this themselves. ---------- */
+  var toastEl = null, toastTimer = 0;
+  var hideToast = function () { if (toastEl) toastEl.classList.remove('is-on'); };
+  var showMailToast = function (addr, gmailUrl, copied) {
+    if (!toastEl) {
+      toastEl = document.createElement('div'); toastEl.className = 'mail-toast'; toastEl.setAttribute('role', 'status');
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = '';
+    var msg = document.createElement('span');
+    msg.appendChild(document.createTextNode('No email app opened? '));
+    var g = document.createElement('a'); g.href = gmailUrl; g.target = '_blank'; g.rel = 'noopener'; g.textContent = 'Write it in Gmail';
+    msg.appendChild(g);
+    msg.appendChild(document.createTextNode(copied ? ', or paste ' : ', or write to '));
+    var s = document.createElement('strong'); s.textContent = addr; msg.appendChild(s);
+    msg.appendChild(document.createTextNode(copied ? ' (copied).' : '.'));
+    var x = document.createElement('button'); x.type = 'button'; x.setAttribute('aria-label', 'Close'); x.textContent = '×';
+    x.addEventListener('click', hideToast);
+    toastEl.appendChild(msg); toastEl.appendChild(x);
+    requestAnimationFrame(function () { toastEl.classList.add('is-on'); });
+    clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, 12000);
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="mailto:"]') : null;
+    if (!a || a.hasAttribute('data-mail-own')) return;
+    var raw = a.getAttribute('href').slice(7), qi = raw.indexOf('?');
+    var addr = decodeURIComponent(qi > -1 ? raw.slice(0, qi) : raw);
+    var params; try { params = new URLSearchParams(qi > -1 ? raw.slice(qi + 1) : ''); } catch (err) { params = new URLSearchParams(''); }
+    var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(addr) +
+      (params.get('subject') ? '&su=' + encodeURIComponent(params.get('subject')) : '') +
+      (params.get('body') ? '&body=' + encodeURIComponent(params.get('body')) : '');
+    var done = function (copied) { setTimeout(function () { showMailToast(addr, gmailUrl, copied); }, 600); };
+    try { if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(addr).then(function () { done(true); }, function () { done(false); }); else done(false); }
+    catch (err) { done(false); }
+  });
+
   /* ---------- in-page anchors (smooth, Lenis-aware) ---------- */
   var lenis = null;
   var scrollToEl = function (el) {

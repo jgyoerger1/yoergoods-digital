@@ -290,12 +290,38 @@
     pre.hidden = kind !== 'fallback'; row.hidden = kind !== 'fallback';
     if (kind === 'fallback') {
       pre.textContent = body;
-      var cp = $('[data-copy]', done), ml = $('[data-mail]', done);
-      if (cp) cp.onclick = function () {
-        var ok = function () { cp.textContent = 'Copied'; setTimeout(function () { cp.textContent = 'Copy summary'; }, 1600); };
-        if (navigator.clipboard) navigator.clipboard.writeText(body).then(ok, ok); else ok();
+      var cp = $('[data-copy]', done), ml = $('[data-mail]', done), gm = $('[data-gmail]', done), hint = $('[data-mail-hint]', done);
+      var subject = 'Website quote request' + (val('businessName') ? ': ' + val('businessName') : '');
+      var showHint = function (msg) { if (hint) { hint.textContent = msg; hint.hidden = false; } };
+      var copyBody = function (done2) {
+        var ok = function () { if (done2) done2(true); }, bad = function () { if (done2) done2(false); };
+        try { if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(body).then(ok, bad); else bad(); } catch (e) { bad(); }
       };
-      if (ml) { if (email) { ml.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Website quote request') + '&body=' + encodeURIComponent(body); } else ml.hidden = true; }
+      if (cp) cp.onclick = function () {
+        copyBody(function (copied) {
+          cp.textContent = copied ? 'Copied' : 'Select the summary above';
+          setTimeout(function () { cp.textContent = 'Copy summary'; }, 1800);
+          if (copied && email) showHint('Copied. Paste it into a new email to ' + email + '.');
+        });
+      };
+      // Gmail compose works in any browser, with or without a desktop email app
+      if (gm) { if (email) gm.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(email) + '&su=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body); else gm.hidden = true; }
+      // mailto only works when the computer has an email app registered; keep the link short enough for Outlook and
+      // copy the full summary on click so nothing is lost if no app opens
+      if (ml) {
+        if (email) {
+          var mailBody = body;
+          if (encodeURIComponent(mailBody).length > 1700) {
+            mailBody = body.split('\n').slice(0, 12).join('\n') + '\n\n(The full summary is on my clipboard; pasting it below.)\n';
+          }
+          ml.href = 'mailto:' + email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(mailBody);
+          ml.onclick = function () {
+            copyBody(function (copied) {
+              showHint((copied ? 'Your summary is copied. ' : '') + 'If no email app opened, use Send with Gmail, or paste the summary into a new email to ' + email + '.');
+            });
+          };
+        } else ml.hidden = true;
+      }
     }
     form.hidden = true; if (side) side.classList.add('is-sent');
     done.hidden = false;
@@ -311,7 +337,7 @@
     if (!validate(idx)) return;
     var s = state(), est = estimate(s), body = composed(s, est);
     if (!endpoint) {
-      finish('fallback', 'Almost there', 'The inbox for this form is being connected. Copy your summary and email it over, or use the button below and your email app will do it for you. Any files you picked can come along in that email.', body);
+      finish('fallback', 'Almost there', 'One last step: send it with Gmail in one click, or copy the summary and paste it into an email to ' + (email || 'me') + '. Any files you picked can come along in that email.', body);
       return;
     }
     var label = submitBtn.textContent;
@@ -340,7 +366,7 @@
       })
       .catch(function (err) {
         if (err && err.tooBig) { refresh(); if (drop) drop.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' }); return; }
-        finish('fallback', 'That did not go through', 'No problem. Copy your summary and email it directly, or use the email button below.', body);
+        finish('fallback', 'That did not go through', 'No problem. Send it with Gmail in one click, or copy the summary and paste it into an email to ' + (email || 'me') + '.', body);
       })
       .then(function () { submitBtn.disabled = false; submitBtn.textContent = label; });
   });

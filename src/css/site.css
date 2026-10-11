@@ -639,6 +639,19 @@ html.motion .hero__mark .mk { opacity: 0; }
 .section--light .bullets-2 li { color: var(--ink-2); }
 .section--light .bullets-2 li svg { color: #9a6f1f; }
 
+/* ---------- email fallbacks ---------- */
+.qdone__hint { font-size: 14px; color: var(--gold-3); margin-top: -4px; }
+.mail-toast { position: fixed; left: 50%; bottom: 20px; z-index: 300; width: max-content; max-width: calc(100vw - 32px);
+  display: flex; align-items: center; gap: 14px; padding: 14px 14px 14px 18px; border-radius: 14px;
+  background: rgba(16, 27, 41, 0.97); border: 1px solid rgba(200, 151, 63, 0.45); box-shadow: var(--shadow);
+  color: var(--text); font-size: 14.5px; line-height: 1.45;
+  opacity: 0; transform: translate(-50%, 16px); pointer-events: none; transition: opacity 0.3s, transform 0.4s var(--ease); }
+.mail-toast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.mail-toast strong { color: var(--cream); font-weight: 600; word-break: break-all; }
+.mail-toast a { color: var(--gold-2); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.mail-toast button { flex: none; width: 30px; height: 30px; border-radius: 50%; color: var(--muted); font-size: 20px; line-height: 1; display: grid; place-items: center; }
+.mail-toast button:hover { color: var(--cream); background: rgba(244, 239, 230, 0.08); }
+
 /* ---------- 404 ---------- */
 .nf { min-height: 80svh; display: grid; place-items: center; text-align: center; padding-top: var(--nav-h); }
 .nf .h1 { margin: 12px 0 18px; }

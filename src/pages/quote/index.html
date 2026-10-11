@@ -209,9 +209,11 @@ scripts: quote
           <p data-done-text></p>
           <pre hidden></pre>
           <div class="qdone__row" hidden>
-            <button class="btn btn--gold" type="button" data-copy>Copy summary</button>
-            <a class="btn btn--ghost" data-mail href="#">Open in my email app</a>
+            <a class="btn btn--gold" data-gmail href="#" target="_blank" rel="noopener">Send with Gmail</a>
+            <button class="btn btn--ghost" type="button" data-copy>Copy summary</button>
+            <a class="btn btn--ghost" data-mail data-mail-own href="#">Other email app</a>
           </div>
+          <p class="qdone__hint" data-mail-hint hidden></p>
           <p><a class="link" href="{{base}}/">Back to the homepage <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></p>
         </div>
       </div>
