@@ -21,7 +21,7 @@
       {
         "id": "launch",
         "name": "Launch",
-        "from": 1200,
+        "from": 800,
         "tag": "New businesses",
         "blurb": "For businesses that need to exist online, properly, and fast.",
         "items": [
@@ -35,7 +35,7 @@
       {
         "id": "grow",
         "name": "Grow",
-        "from": 2800,
+        "from": 1900,
         "tag": "Most popular",
         "blurb": "For businesses ready to win work from their website.",
         "items": [
@@ -49,7 +49,7 @@
       {
         "id": "refresh",
         "name": "Refresh",
-        "from": 900,
+        "from": 500,
         "tag": "Existing sites",
         "blurb": "For sites that need a reset, not a rebuild.",
         "items": [
@@ -73,37 +73,37 @@
     },
     "estimate": {
       "size": {
-        "one": 1200,
-        "small": 2400,
-        "full": 4200,
-        "large": 6500,
-        "portfolio": 750
+        "one": 800,
+        "small": 1600,
+        "full": 2800,
+        "large": 4300,
+        "portfolio": 500
       },
       "situationMultiplier": {
         "none": 1,
-        "refresh": 0.85,
+        "refresh": 0.625,
         "rebuild": 1,
         "pro": 1
       },
       "features": {
-        "gallery": 300,
-        "blog": 400,
-        "booking": 350,
-        "store": 1800,
-        "reviews": 150,
-        "maps": 150,
-        "languages": 600
+        "gallery": 200,
+        "blog": 275,
+        "booking": 225,
+        "store": 1200,
+        "reviews": 100,
+        "maps": 100,
+        "languages": 400
       },
       "addons": {
-        "brand": 450,
-        "copy": 500,
-        "photos": 250
+        "brand": 300,
+        "copy": 325,
+        "photos": 175
       },
-      "rangeLow": 0.9,
-      "rangeHigh": 1.15
+      "rangeLow": 1,
+      "rangeHigh": 1.2
     },
     "portfolio": {
-      "from": 750
+      "from": 500
     }
   },
   "newsletterEndpoint": "",
