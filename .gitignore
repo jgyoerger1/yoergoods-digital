@@ -4,3 +4,6 @@ node_modules/
 *.log
 Thumbs.db
 .DS_Store
+
+# SEO audit working files (local only)
+seo-audit/

@@ -4,21 +4,22 @@
     <div class="footer__brand">
       <a class="brand" href="{{base}}/" aria-label="Yoergoods Digital home">
         {{include:mark}}
-        <span class="brand__text"><span class="brand__name">Yoergoods</span><span class="brand__sub">Digital</span></span>
+        <span class="brand__text"><span class="brand__name">Yoergoods</span> <span class="brand__sub">Digital</span></span>
       </a>
       <p class="footer__tag">{{site.tagline}}.</p>
-      <p class="footer__meta">Small-business websites built in {{site.location}}, for businesses everywhere.</p>
+      <p class="footer__meta">Small business web design in {{site.location}}, for Summit County, Northeast Ohio and remote clients anywhere in the US.</p>
     </div>
     <nav class="footer__col" aria-label="Footer">
-      <h2 class="footer__h">Explore</h2>
+      <p class="footer__h">Explore</p>
       <a href="{{base}}/#services">Services</a>
       <a href="{{base}}/#process">How it works</a>
       <a href="{{base}}/pricing/">Pricing</a>
+      <a href="{{base}}/about/">About</a>
       <a href="{{base}}/#faq">Questions</a>
       <a href="{{base}}/quote/">Build a quote</a>
     </nav>
     <nav class="footer__col" aria-label="Who it's for and work">
-      <h2 class="footer__h">For you</h2>
+      <p class="footer__h">For you</p>
       <a href="{{base}}/new-website/">I need a first website</a>
       <a href="{{base}}/website-refresh/">My site needs a refresh</a>
       <a href="{{base}}/portfolio-websites/">I want a portfolio site</a>
@@ -27,7 +28,7 @@
       <a href="{{base}}/work/">Recent work</a>
     </nav>
     <div class="footer__col">
-      <h2 class="footer__h">Say hello</h2>
+      <p class="footer__h">Say hello</p>
       <a href="mailto:{{site.email}}">{{site.email}}</a>
       <a href="{{site.linkedin}}" rel="me noopener" target="_blank">LinkedIn</a>
       <p class="footer__meta">Based in {{site.location}}. Remote-friendly, always.</p>
@@ -38,9 +39,9 @@
     <span>Fixed-price quotes. Weekly updates. No surprises.</span>
   </div>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
+<script src="{{base}}/js/vendor/gsap.min.js" defer></script>
+<script src="{{base}}/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="{{base}}/js/vendor/lenis.min.js" defer></script>
 <script src="{{base}}/js/lava.js" defer></script>
 <script src="{{base}}/js/site.js" defer></script>
 {{pagescripts}}

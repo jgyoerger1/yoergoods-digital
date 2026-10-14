@@ -1,6 +1,9 @@
 /* Yoergoods Digital - behaviour and motion
-   Motion stack: GSAP 3 + ScrollTrigger, Lenis smooth scroll on pointer devices.
-   Everything degrades: no GSAP, or prefers-reduced-motion, and the page simply renders static. */
+   Motion stack: GSAP 3 + ScrollTrigger, Lenis smooth scroll on pointer devices (all self-hosted in js/vendor/).
+   Everything degrades: no GSAP, or prefers-reduced-motion, and the page simply renders static.
+   Content is never held back for long: reveals only fade (opacity, so text stays in the accessibility tree), the hero
+   copy animates in CSS from the first paint, and the head script removes html.motion if this file has not set
+   window.YG_MOTION_READY by DOMContentLoaded (or within 2.5 s), e.g. when it fails to load or throws. */
 (function () {
   'use strict';
   var $ = function (s, c) { return (c || document).querySelector(s); };
@@ -143,11 +146,71 @@
     });
   });
 
+  window.YG_MOTION_READY = true;   // this file is running: the head-script failsafe can stand down
   if (!motion) return;
 
-  /* =================================================================== motion */
+  /* =================================================================== motion
+     Built just after the first paint (an animation frame, then a task), so GSAP/ScrollTrigger measuring the page
+     never delays it; the hero copy is already animating in CSS by then. The setup's own try/catch shows the page
+     statically if anything in it breaks. A timer covers background tabs, which get no animation frames. */
+  var motionStarted = false;
+  var startMotion = function () { if (!motionStarted) { motionStarted = true; setupMotion(); } };
+  if (window.requestAnimationFrame) requestAnimationFrame(function () { setTimeout(startMotion, 0); });
+  setTimeout(startMotion, 1000);
+
+  function setupMotion() {
+  try {
   gsap.registerPlugin(ScrollTrigger);
   gsap.defaults({ ease: 'power3.out', duration: 0.9 });
+  ScrollTrigger.config({ ignoreMobileResize: true });   // the phone address bar showing/hiding is not a reason to re-measure
+
+  /* ---------- one IntersectionObserver plays every "once, when it scrolls into view" effect ----------
+     (it replaced ~30 per-element ScrollTriggers, which all had to be re-measured on load, font swap and resize).
+     whenSeen(el, play, show): play() once el's top is 110px above the viewport bottom, or right away if el is already above
+     the viewport. Headless/automated browsers (navigator.webdriver: renderers, agents, screenshot tools) and browsers
+     without IntersectionObserver never wait on a scroll: they get show(), the finished state, immediately. */
+  var instant = true;
+  try { instant = navigator.webdriver === true || typeof IntersectionObserver === 'undefined'; } catch (e) {}
+  var seenIO = instant ? null : new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting && !(en.boundingClientRect.bottom < 0)) return;
+      seenIO.unobserve(en.target);
+      var fns = en.target._ygSeen || [];
+      en.target._ygSeen = null;
+      fns.forEach(function (fn) { fn(); });
+    });
+  }, { rootMargin: '0px 0px -110px 0px' });   // ~ "top 87%" on a phone or laptop; a fixed px band (not %) so even a
+  // page-tall renderer viewport reaches every block (the footer below them is always taller than 110px)
+  var whenSeen = function (el, play, show) {
+    if (!seenIO) { if (show) show(); return; }
+    (el._ygSeen = el._ygSeen || []).push(play);
+    seenIO.observe(el);
+  };
+  var wideMq = null;   // sideways slide-ins only where there is room; on phones they rise like everything else
+  try { wideMq = matchMedia('(min-width: 768px)'); } catch (e) {}
+
+  /* ---------- generic reveals (opacity + transform only; the CSS start state is opacity: 0) ---------- */
+  $$('[data-reveal]').forEach(function (el) {
+    var type = el.getAttribute('data-reveal') || 'up';
+    whenSeen(el, function () {
+      var from = { opacity: 0 }, to = { opacity: 1, duration: 1.05 };
+      var wide = !wideMq || wideMq.matches;
+      if (type === 'up') { from.y = 44; to.y = 0; }
+      if (type === 'left' || type === 'right') {
+        if (wide) { from.x = type === 'left' ? -56 : 56; to.x = 0; } else { from.y = 44; to.y = 0; }
+      }
+      if (type === 'scale') { from.scale = 0.92; to.scale = 1; from.y = 20; to.y = 0; }
+      gsap.fromTo(el, from, to);
+    }, function () { gsap.set(el, { opacity: 1 }); });
+  });
+  $$('[data-reveal-group]').forEach(function (g) {
+    var items = Array.prototype.slice.call(g.children);
+    if (!items.length) return;
+    var stagger = Math.min(0.12, 0.5 / items.length);
+    whenSeen(g, function () {
+      gsap.fromTo(items, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.95, stagger: stagger });
+    }, function () { gsap.set(items, { opacity: 1 }); });
+  });
 
   // Lenis smooth scroll on mouse/trackpad devices; touch keeps native scrolling.
   if (window.Lenis && finePointer) {
@@ -176,18 +239,24 @@
       var stopLava = YGLava.mount(lavaCanvas, { scale: 0.5 });
       if (stopLava) gsap.to(lavaCanvas, { opacity: 1, duration: 1.8, ease: 'sine.out', delay: 0.3 });
     }
+    // The copy (eyebrow, H1 words, lede, buttons, proof points) animates in CSS from the first paint (site.css,
+    // "hero entrance"), so it is never hidden after it has painted. Only the decoration is timed here; CSS keeps the
+    // glow, rings and scroll cue transparent until this runs, so they fade in once instead of blinking.
     tl.fromTo('.hero__glow', { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 2, ease: 'sine.out' }, 0)
       .fromTo('.hero__ring', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 1.6, stagger: 0.15, ease: 'power2.out' }, 0.3)
-      .fromTo('.hero__eyebrow', { opacity: 0, y: 16 }, { opacity: 1, y: 0 }, 0.5)
-      .fromTo('.hero__title .w > span', { yPercent: 115 }, { yPercent: 0, duration: 1.05, stagger: 0.07, ease: 'power4.out' }, 0.6)
-      .fromTo('.hero__lede', { opacity: 0, y: 26 }, { opacity: 1, y: 0 }, 1.05)
-      .fromTo('.hero__cta > *', { opacity: 0, y: 22 }, { opacity: 1, y: 0, stagger: 0.09 }, 1.2)
-      .fromTo('.hero__proof li', { opacity: 0, y: 14 }, { opacity: 1, y: 0, stagger: 0.07, duration: 0.7 }, 1.35)
       .to('.hero__scroll', { opacity: 1, duration: 0.8 }, 1.9);
 
-    // ambient float on the mark, then a slow ring spin
-    gsap.to('.hero__mark', { y: -12, duration: 3.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.8 });
-    gsap.to('.hero__ring--2', { rotation: 360, duration: 90, ease: 'none', repeat: -1, transformOrigin: '50% 50%' });
+    // ambient float on the mark, then a slow ring spin (paused while the hero is off screen)
+    var ambient = [
+      gsap.to('.hero__mark', { y: -12, duration: 3.4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 1.8 }),
+      gsap.to('.hero__ring--2', { rotation: 360, duration: 90, ease: 'none', repeat: -1, transformOrigin: '50% 50%' })
+    ];
+    if (typeof IntersectionObserver !== 'undefined') {
+      new IntersectionObserver(function (es) {
+        var on = es[es.length - 1].isIntersecting;
+        ambient.forEach(function (t) { t.paused(!on); });
+      }).observe(hero);
+    }
 
     // pointer: parallax on the mark + a soft gold glow that follows the cursor
     var cursor = $('.hero__cursor'), mark = $('.hero__mark');
@@ -211,27 +280,9 @@
     gsap.to('.hero__inner', { yPercent: -10, opacity: 0.25, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
   }
 
-  /* ---------- generic reveals ---------- */
-  $$('[data-reveal]').forEach(function (el) {
-    var type = el.getAttribute('data-reveal') || 'up';
-    var from = { autoAlpha: 0 }, to = { autoAlpha: 1, duration: 1.05 };
-    if (type === 'up') { from.y = 44; to.y = 0; }
-    if (type === 'left') { from.x = -56; to.x = 0; }
-    if (type === 'right') { from.x = 56; to.x = 0; }
-    if (type === 'scale') { from.scale = 0.92; to.scale = 1; from.y = 20; to.y = 0; }
-    to.scrollTrigger = { trigger: el, start: 'top 86%', once: true };
-    gsap.fromTo(el, from, to);
-  });
-  $$('[data-reveal-group]').forEach(function (g) {
-    var items = Array.prototype.slice.call(g.children);
-    if (!items.length) return;
-    var stagger = Math.min(0.12, 0.5 / items.length);
-    gsap.fromTo(items, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.95, stagger: stagger, scrollTrigger: { trigger: g, start: 'top 84%', once: true } });
-  });
-
-  /* ---------- statement: words light up as you read down ---------- */
+  /* ---------- statement: words light up as you read down (scroll-driven, so automated browsers get it lit) ---------- */
   var statement = $('.statement__text');
-  if (statement) {
+  if (statement && !instant) {
     if (!statement.querySelector('.w')) {
       // wrap every word (keeping <em> highlights intact)
       var wrap = function (node) {
@@ -279,23 +330,29 @@
     });
   }
 
-  /* ---------- counters ---------- */
+  /* ---------- counters: the real price stays in the DOM (as the server rendered it) until the count-up starts on
+     screen; only then does it drop to zero and count back up. Automated browsers never see anything but the price. ---------- */
   $$('[data-count]').forEach(function (el) {
-    var end = parseFloat(el.getAttribute('data-count')) || 0;
+    var end = parseFloat(el.getAttribute('data-count'));
+    if (!isFinite(end)) return;   // no usable number: leave the rendered text alone
     var prefix = el.getAttribute('data-prefix') || '', suffix = el.getAttribute('data-suffix') || '';
-    var o = { v: 0 };
-    el.textContent = prefix + '0' + suffix;
-    gsap.to(o, {
-      v: end, duration: 1.6, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-      onUpdate: function () { el.textContent = prefix + Math.round(o.v).toLocaleString('en-US') + suffix; },
-      onComplete: function () { el.textContent = prefix + Math.round(end).toLocaleString('en-US') + suffix; }
+    var fmt = function (n) { return prefix + Math.round(n).toLocaleString('en-US') + suffix; };
+    whenSeen(el, function () {
+      var o = { v: 0 };
+      gsap.to(o, {
+        v: end, duration: 1.6, ease: 'power2.out',
+        onStart: function () { el.textContent = fmt(0); },
+        onUpdate: function () { el.textContent = fmt(o.v); },
+        onComplete: function () { el.textContent = fmt(end); }
+      });
     });
   });
 
-  /* ---------- pricing comparison bars ---------- */
+  /* ---------- pricing comparison bars (decorative; the ranges are also written out as text) ---------- */
   $$('.range__fill').forEach(function (bar, i) {
-    gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: 1.1, ease: 'power3.out', delay: i * 0.08, scrollTrigger: { trigger: bar, start: 'top 90%', once: true } });
+    if (instant) return;
+    gsap.set(bar, { scaleX: 0 });
+    whenSeen(bar, function () { gsap.to(bar, { scaleX: 1, duration: 1.1, ease: 'power3.out', delay: i * 0.08 }); });
   });
 
   /* ---------- parallax images ---------- */
@@ -321,10 +378,21 @@
 
   /* ---------- section headings: a line draws under the eyebrow ---------- */
   $$('.section__head .eyebrow').forEach(function (eb) {
-    gsap.fromTo(eb, { '--line-scale': 0 }, { '--line-scale': 1, duration: 1, scrollTrigger: { trigger: eb, start: 'top 90%', once: true } });
+    if (instant) return;
+    gsap.set(eb, { '--line-scale': 0 });
+    whenSeen(eb, function () { gsap.to(eb, { '--line-scale': 1, duration: 1 }); });
   });
 
-  /* ---------- keep ScrollTrigger honest after fonts and images land ---------- */
-  window.addEventListener('load', function () { ScrollTrigger.refresh(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  /* ---------- keep ScrollTrigger honest after fonts land. ScrollTrigger already refreshes itself on DOMContentLoaded
+     and load, so only a font swap that finishes after load needs another pass. ---------- */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { if (document.readyState === 'complete') ScrollTrigger.refresh(); });
+  }
+  } catch (err) {
+    // something in the motion layer broke: show the page as it is in the HTML rather than leave anything hidden
+    html.classList.remove('motion');
+    $$('[data-reveal], [data-reveal-group] > *').forEach(function (el) { el.style.opacity = ''; el.style.visibility = ''; });
+    if (window.console && console.error) console.error(err);
+  }
+  }
 })();

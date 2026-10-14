@@ -17,7 +17,8 @@ yoergoods-digital\
       404.html
     partials\               <- head.html, nav.html, footer.html, mark.svg (the logomark)
     css\site.css  js\site.js (motion)  js\quote.js (quote builder)
-    og\                     <- templates rendered to og-image.png and apple-touch-icon.png
+    og\                     <- templates rendered to og-image.png, apple-touch-icon.png and logo-512.png
+                               (build also writes og-image.jpg, icon-192.png and favicon.ico)
   source\
     shots\                  <- portfolio screenshots (PNG, 1440x900 desktop + 390x844 mobile)
     people\                 <- headshot
@@ -134,7 +135,7 @@ the script. Then run `build.ps1`.
   /guides/) so old links still land. Only `ai.bundlePrice` remains in site.json.
 - `/guides/` and `/guides/<slug>/` are the five guide sales pages. The catalog is site.json `guides` (title, price,
   tag, promise, pages, buyUrl). With `buyUrl` empty a page shows "Coming soon" with a notify form; paste the
-  Lemon Squeezy or Gumroad checkout URL and it flips to "Buy the guide" (structured data flips PreOrder to InStock).
+  Lemon Squeezy or Gumroad checkout URL and it flips to "Buy the guide" (structured data switches the guide from a Book with no offer to a Product with an InStock offer).
   Guide outlines and prompt libraries to write from are in `C:\Dev\yoergoods-business\guides\`.
 - Lead magnet: `src\downloads\yoergoods-ten-ai-prompts.html` is printed to `docs\downloads\...pdf` by the build.
   The forms on /ai/ and /guides/ post the email to `newsletterEndpoint` (Buttondown: `https://buttondown.com/api/emails/embed-subscribe/<username>`;
@@ -179,8 +180,24 @@ System, refresh adds `logoCleanup` (200). Links can preselect `?situation=`, `?s
 
 ## SEO built in
 
-Per-page titles and descriptions, canonical URLs, Open Graph + Twitter cards with a rendered 1200x630 image,
-`robots.txt` + `sitemap.xml`, JSON-LD (ProfessionalService with offers on every page, FAQPage on the home and
-landing pages, BreadcrumbList and CreativeWork on subpages, Service on the landing pages), one H1 per page,
-semantic landmarks, alt text and explicit image dimensions, lazy-loaded images, preconnected fonts, and a
-404 page marked noindex. Lenis and GSAP load deferred and never block first paint.
+Per-page titles (keyword first, 60 chars max) and descriptions (160 max), canonical URLs, Open Graph + Twitter
+cards (`og-image.jpg`, per-page `ogimage:` front matter), `robots.txt`, `sitemap.xml` with real per-page
+`lastmod` from git, `llms.txt`, an IndexNow key file, favicon.ico + manifest icons, one H1 per page carrying the
+topic line, semantic landmarks, alt text and explicit image dimensions, self-hosted fonts and GSAP/Lenis, and a
+404 page marked noindex.
+
+JSON-LD is one linked `@graph` per page built in build.ps1: `LocalBusiness #org` (Stow, OH; `areaServed` from
+site.json `serviceArea`; offers with "from" prices as `minPrice`), `WebSite #website`, `Person #jordan`, a WebPage
+node per page, plus each page's own blocks (FAQPage, Service, BreadcrumbList, Article for case studies), merged
+and validated at build time (invalid JSON stops the build). Business `sameAs`/`hasMap` fill in automatically when
+`socials.gbp` / `socials.linkedinCompany` etc. are set in site.json. The service-area wording lives only in
+site.json `serviceArea.summary`.
+
+### SEO pass (2026-10-14)
+
+Audit with the claude-seo plugin; working files in `seo-audit\` (gitignored): findings per category, the PDF
+report, screenshots, and `IMPLEMENT.md`. After publishing, ping search engines with
+`powershell -File tools\indexnow.ps1 -Live` (`-ChangedSince <date>` for just the changed pages). Things only
+Jordan can do: Google Search Console Domain property (DNS TXT at Squarespace) + sitemap, Bing Webmaster Tools
+(import from GSC), Google Business Profile, Bing Places, Apple Business Connect, LinkedIn company page, then add
+those URLs to site.json `socials`.

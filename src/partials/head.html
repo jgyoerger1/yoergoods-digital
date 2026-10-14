@@ -16,23 +16,25 @@
 <meta property="og:title" content="{{ogtitle}}">
 <meta property="og:description" content="{{description}}">
 <meta property="og:url" content="{{canonical}}">
-<meta property="og:image" content="{{site.domain}}{{base}}/og-image.png">
+<meta property="og:image" content="{{ogimage}}">
+<meta property="og:image:type" content="{{ogimagetype}}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Yoergoods Digital. Websites that work harder.">
+<meta property="og:image:alt" content="{{ogimagealt}}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ogtitle}}">
 <meta name="twitter:description" content="{{description}}">
-<meta name="twitter:image" content="{{site.domain}}{{base}}/og-image.png">
+<meta name="twitter:image" content="{{ogimage}}">
+<meta name="twitter:image:alt" content="{{ogimagealt}}">
+<link rel="icon" href="{{base}}/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="{{base}}/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{base}}/apple-touch-icon.png">
 <link rel="manifest" href="{{base}}/site.webmanifest">
 <link rel="sitemap" type="application/xml" href="{{base}}/sitemap.xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Inter:wght@400;500;600&display=swap">
+<link rel="preload" href="{{base}}/css/fonts/outfit-latin-var.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 981px)">
+<link rel="preload" href="{{base}}/css/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin media="(min-width: 981px)">
 <link rel="stylesheet" href="{{base}}/css/site.css">
-<script>(function(){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('motion');}}catch(e){}})();</script>
+<script>(function(){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var d=document.documentElement,off=function(){if(!window.YG_MOTION_READY)d.classList.remove('motion');};d.classList.add('motion');setTimeout(off,2500);document.addEventListener('DOMContentLoaded',off);}}catch(e){}})();</script>
 <script>window.YG={{config}};</script>
 <script type="application/ld+json">{{orgjsonld}}</script>
 </head>

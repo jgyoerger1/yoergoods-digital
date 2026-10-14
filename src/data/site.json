@@ -10,9 +10,19 @@
   "ownerTitle": "Founder. Project manager by day, builder by nature.",
   "location": "Stow, Ohio",
   "region": "Northeast Ohio",
+  "postalCode": "44224",
+  "serviceArea": {
+    "cities": ["Stow", "Hudson", "Kent", "Cuyahoga Falls", "Akron"],
+    "counties": ["Summit", "Portage"],
+    "summary": "Stow, Hudson, Kent, Cuyahoga Falls, Akron and the rest of Summit County and Northeast Ohio"
+  },
+  "ownerUrl": "https://jordanyoerger.com/",
+  "indexNowKey": "c602d68e3cb1ac0b15f86ebfc32401fd",
   "quoteEndpoint": "",
   "socials": {
     "linkedin": "https://www.linkedin.com/in/jordan-yoerger",
+    "gbp": "",
+    "linkedinCompany": "",
     "instagram": "",
     "facebook": ""
   },

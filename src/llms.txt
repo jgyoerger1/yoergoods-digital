@@ -1,0 +1,52 @@
+# Yoergoods Digital
+
+> Yoergoods Digital is a one-person web design and website build studio in Stow, Ohio (Summit County, Northeast Ohio), run by {{site.owner}}, a PMP-certified project manager. It builds fast, mobile-first, Google-ready websites for small businesses that have no website yet or have an outdated one, plus portfolio websites for professionals and job seekers, and logo and brand identity packages. Every project gets a fixed price in writing before work starts and a status update every week.
+
+Service area: {{site.serviceArea.summary}}, plus remote clients anywhere in the US. Recent Northeast Ohio projects include a full website for a remodeling business in Kent, Ohio and a one-page website for a pet sitting business in Hudson, Ohio. There is no storefront; contact is by email or through the online quote builder.
+
+Prices below are the published starting prices in US dollars, the same numbers shown on the pricing page. They are introductory prices while Yoergoods Digital takes on its first clients, and the price in a client's written quote is locked for that project.
+
+## Services and prices
+
+- [One-Page Website]({{site.domain}}{{base}}/new-website/): from {{price.launch}}. One scrolling page or a focused landing page, mobile-first design, a contact or quote form to the owner's inbox, and domain, hosting and Google Business Profile set up. Typically live in one to two weeks.
+- [Small Business Website]({{site.domain}}{{base}}/pricing/): from {{price.grow}}. Up to six pages (home, services, about, work, contact), service pages written to be found on Google, a photo gallery or portfolio, a quote or lead form with photo upload, analytics, search setup and 30 days of fixes. Typically three to five weeks.
+- [Custom Business Website]({{site.domain}}{{base}}/pricing/): from {{price.custom}}. Online stores with secure checkout, customer accounts or member areas, custom tools such as calculators, quote builders and portals, and connections to software the business already uses.
+- [Website Refresh]({{site.domain}}{{base}}/website-refresh/): from {{price.refresh}}. A new design on the content a business already has, speed and mobile fixes, updated photos, copy and contact details, and search cleanup with redirects handled so nothing the business relies on gets lost. Works for sites on Wix, Squarespace, WordPress or GoDaddy.
+- [Portfolio Website]({{site.domain}}{{base}}/portfolio-websites/): from {{site.pricing.portfolio.from|money}}. A one-page personal site for professionals and job seekers with four to six work samples, a resume download and the person's own domain. About a week from first call to live link.
+- [Brand Essentials]({{site.domain}}{{base}}/branding/): {{site.pricing.branding.essentials.price|money}}. Primary logo plus an icon version, color palette and font pairing, files for web, print and social, and two rounds of revisions. Delivered in {{site.pricing.branding.essentials.turnaround}}.
+- [Brand Identity System]({{site.domain}}{{base}}/branding/): {{site.pricing.branding.identity.price|money}}. Everything in Brand Essentials plus a full logo suite, a one-page brand guide, social media profile and post templates, and a print-ready business card. Delivered in {{site.pricing.branding.identity.turnaround}}.
+- [Care plan]({{site.domain}}{{base}}/pricing/): optional, {{price.care}} a month or {{price.careyear}} a year. Hosting, DNS and backups, small edits each month, and a monthly speed and search check. The domain stays in the client's name.
+
+## How a project works
+
+- A 30-minute call, then a written, dated plan with the scope and a fixed price.
+- Homepage design first for approval, then the build, with a status note every week and a live link to watch the site come together.
+- Launch includes domain, hosting, analytics and Google Business Profile setup, a short training video, and 30 days of included fixes.
+- The domain stays in the client's name. Sites are plain, fast files on free hosting, so there is no platform fee; the only recurring costs are the domain renewal and the optional care plan.
+- The price does not move while the scope stays the same; new requests are quoted separately.
+
+## Pricing context
+
+- [Website pricing compared with the market]({{site.domain}}{{base}}/pricing/): a side-by-side of DIY builders, marketplace freelancers, web agencies and Yoergoods Digital, with sources. Published 2026 US pricing guides put a five-to-ten page small business website at roughly $1,500 to $5,000 from a freelancer and $5,000 to $15,000 from an agency (WPZOOM, updated 28 September 2026); Wix and Squarespace plans run about $17 to $49 a month on annual billing (checked 30 September 2026).
+
+## Work
+
+- [Recent work]({{site.domain}}{{base}}/work/): five live projects with case studies.
+- [Yoerger Renovations]({{site.domain}}{{base}}/work/yoerger-renovations/): a full website for a remodeling business in Kent, Ohio, with six service pages, a photo-driven project gallery and a quote form that emails photos to the owner.
+- [All Paws Pet Care]({{site.domain}}{{base}}/work/all-paws/): a one-page website for a pet sitting business in Hudson, Ohio that sends every booking to Rover.
+- [June & Fern]({{site.domain}}{{base}}/work/june-and-fern/): an online store for one-of-one cyanotype apparel, vintage and small goods from Northeast Ohio.
+- [Rutline]({{site.domain}}{{base}}/work/rutline/): a whitetail hunting web app with a stand map, wind and movement forecasts and property lines.
+- [Jordan Yoerger portfolio]({{site.domain}}{{base}}/work/jordan-yoerger-portfolio/): a personal portfolio site with a resume download.
+
+## About and contact
+
+- [About]({{site.domain}}{{base}}/about/): who runs Yoergoods Digital and how projects are run.
+- [Quote builder]({{site.domain}}{{base}}/quote/): a planning range in about three minutes; the real quote is fixed in writing after a 30-minute call.
+- Email: {{site.email}}
+- Founder: {{site.owner}}, project manager: PMP certified, MBA, mechanical engineer by training, eight years leading programs ([LinkedIn]({{site.linkedin}})).
+- Location: {{site.location}}, United States. No storefront and no published phone number.
+
+## Optional
+
+- [AI guides]({{site.domain}}{{base}}/guides/): five practical guides to Microsoft 365 Copilot, Claude Code and office AI, written from daily use. Not yet on sale; visitors can join a launch list.
+- [Home page]({{site.domain}}{{base}}/): overview, process, prices, work and frequently asked questions.
