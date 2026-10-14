@@ -104,10 +104,17 @@ scripts: quote
           <!-- 4: website features, or what goes on the portfolio (branding skips this step) -->
           <fieldset class="qstep" data-step="4" data-paths="site pro">
             <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 4</span><span data-for="site">Anything special?</span><span data-for="pro">What should it include?</span></legend>
-            <p data-for="site">A contact or quote form is always included. Tick anything else you know you want. Skip if you're not sure.</p>
-            <p data-for="pro">Your story, work samples, a resume download and a contact form are always included. Tick anything extra.</p>
-            <div class="opts" data-for="site">
-              <span class="opt opt--inc"><span class="opt__body" style="padding-left:20px"><span class="opt__title">Contact or quote form</span><span class="opt__desc">Lands in your inbox, with spam protection.</span><span class="opt__price">Included</span></span></span>
+            <div class="qinc" data-for="site">
+              <span class="qinc__k">Always included</span>
+              <ul class="qinc__list"><li>Contact form</li><li>Spam protection</li><li>Mobile-first design</li><li>Domain and hosting</li></ul>
+            </div>
+            <div class="qinc" data-for="pro">
+              <span class="qinc__k">Always included</span>
+              <ul class="qinc__list"><li>Your story</li><li>Work samples</li><li>Resume PDF</li><li>Contact form</li><li>Your domain</li></ul>
+            </div>
+            <p data-for="site">Tick anything else you know you want. Skip if you're not sure.</p>
+            <p data-for="pro">Tick any extras you'd like. Skip if you're not sure.</p>
+            <div class="opts opts--fill" data-for="site">
               <label class="opt"><input type="checkbox" name="features" value="gallery"><span class="opt__body"><span class="opt__title">Photo gallery or portfolio</span><span class="opt__desc">Show your work by project or category.</span></span></label>
               <label class="opt"><input type="checkbox" name="features" value="reviews"><span class="opt__body"><span class="opt__title">Customer reviews</span><span class="opt__desc">Pulled from Google, Rover, Yelp or your inbox.</span></span></label>
               <label class="opt"><input type="checkbox" name="features" value="booking"><span class="opt__body"><span class="opt__title">Online booking or scheduling</span><span class="opt__desc">Connected to the calendar tool you already use.</span></span></label>
@@ -116,8 +123,7 @@ scripts: quote
               <label class="opt"><input type="checkbox" name="features" value="languages"><span class="opt__body"><span class="opt__title">A second language</span><span class="opt__desc">Every page in two languages.</span></span></label>
               <label class="opt"><input type="checkbox" name="features" value="store"><span class="opt__body"><span class="opt__title">Online store</span><span class="opt__desc">Products, cart and checkout.</span></span></label>
             </div>
-            <div class="opts" data-for="pro">
-              <span class="opt opt--inc"><span class="opt__body" style="padding-left:20px"><span class="opt__title">Story, work samples, resume, contact</span><span class="opt__desc">One fast page on your own domain.</span><span class="opt__price">Included</span></span></span>
+            <div class="opts opts--fill" data-for="pro">
               <label class="opt"><input type="checkbox" name="pfeatures" value="casestudies"><span class="opt__body"><span class="opt__title">A page per key project</span><span class="opt__desc">Short case studies: the situation, what you did, what changed.</span></span></label>
               <label class="opt"><input type="checkbox" name="pfeatures" value="gallery"><span class="opt__body"><span class="opt__title">Image gallery</span><span class="opt__desc">For designs, photos, builds or anything visual.</span></span></label>
               <label class="opt"><input type="checkbox" name="pfeatures" value="testimonials"><span class="opt__body"><span class="opt__title">Testimonials or references</span><span class="opt__desc">Quotes from managers, clients or colleagues.</span></span></label>

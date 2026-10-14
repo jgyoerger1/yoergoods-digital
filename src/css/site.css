@@ -490,7 +490,13 @@ html.motion .hero__mark .mk { opacity: 0; }
 .opt__title { font-weight: 600; color: var(--cream); font-size: 15.5px; }
 .opt__desc { font-size: 13.5px; color: var(--muted); }
 .opt__price { position: absolute; right: 16px; top: 16px; font-size: 12px; color: var(--gold-2); font-weight: 600; letter-spacing: 0.04em; }
-.opt--inc .opt__body { border-style: dashed; cursor: default; }
+.opt__body:has(> .opt__price) { padding-right: 84px; }
+.opts--fill > .opt:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.qinc { display: grid; gap: 12px; padding: 16px 18px; border-radius: 14px; border: 1px solid rgba(200, 151, 63, 0.28); background: rgba(200, 151, 63, 0.06); }
+.qinc__k { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-2); font-weight: 600; }
+.qinc__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.qinc__list li { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px 7px 8px; border-radius: 999px; background: var(--navy-2); border: 1px solid var(--line-2); color: var(--cream); font-size: 13.5px; font-weight: 500; line-height: 1.2; }
+.qinc__list li::before { content: ""; flex: none; width: 16px; height: 16px; border-radius: 50%; background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 8.2l2.2 2.2 4.8-4.8' fill='none' stroke='%230b1420' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px no-repeat; }
 .field { display: grid; gap: 8px; }
 .field label, .field__label { font-size: 13.5px; font-weight: 600; color: var(--text-2); letter-spacing: 0.02em; }
 .field input, .field textarea, .field select { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--line-2); background: var(--navy-2); color: var(--cream); transition: border-color 0.25s, box-shadow 0.25s; }
