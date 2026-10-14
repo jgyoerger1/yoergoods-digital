@@ -78,8 +78,8 @@ if ($DryRun) {
 # ---------------------------------------------------------------- the key file has to be live first
 try {
   $kr = Invoke-WebRequest -Uri $keyLocation -UseBasicParsing
-  $live = if ($kr.Content -is [byte[]]) { [Text.Encoding]::UTF8.GetString($kr.Content) } else { [string]$kr.Content }
-  if ($live.Trim() -ne $key) { throw "$keyLocation is live but does not contain the key from site.json." }
+  $liveKey = if ($kr.Content -is [byte[]]) { [Text.Encoding]::UTF8.GetString($kr.Content) } else { [string]$kr.Content }
+  if ($liveKey.Trim() -ne $key) { throw "$keyLocation is live but does not contain the key from site.json." }
 } catch {
   throw "Key file check failed ($keyLocation): $($_.Exception.Message). Publish the site and wait for GitHub Pages to deploy, then run this again."
 }
