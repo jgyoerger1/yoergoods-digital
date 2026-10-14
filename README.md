@@ -141,8 +141,8 @@ the script. Then run `build.ps1`.
   MailerLite and Kit have equivalents) and then show the PDF. With the endpoint empty they still hand over the
   PDF but say honestly that the list isn't connected and offer a one-line email instead.
 - `/portfolio-websites/` targets professionals and job seekers; `pricing.portfolio.from` sets the price, and the
-  quote builder has a "professional, not a business" starting point plus a "Portfolio site" size ($500 base).
-- Services is now a dropdown (Websites, Portfolio sites, AI help, Guides) on desktop and grouped in the mobile menu.
+  quote builder has its own portfolio path (`?situation=pro`), see the table under Pricing structure.
+- Services is now a dropdown (Websites, Portfolio sites, Branding, AI guides) on desktop and grouped in the mobile menu.
 
 ## Pricing structure (2026-10-13)
 
@@ -160,10 +160,21 @@ Modelled on a local competitor's tiers, priced 10 to 20% under them as introduct
 | Brand Essentials | pricing.branding.essentials | $300 |
 | Brand Identity System | pricing.branding.identity | $1,750 |
 
-Quote builder: sizes one/small/full/large = 500/1,800/2,600/3,800, portfolio 500, brandonly 0; refresh x0.65;
-nothing below `minimum` (500); an online store never below `storeFloor` (3,500); logo none adds Brand Essentials,
-identity adds the Identity System, refresh adds `logoCleanup` (200). Links can preselect `?situation=`, `?size=`
-and `?brand=essentials|identity`. The only hard-coded number is the Yoergoods bar on the pricing comparison chart
+Quote builder: step 1 picks a path and the rest of the form follows it. Elements carry `data-for="site pro brand"`
+(shown only on those paths) and whole steps carry `data-paths`; step numbers ("Step 2 of 6") and the progress bar
+recount per path.
+
+| Path | Step 1 choice | Asks | Estimate |
+|---|---|---|---|
+| site (7 steps) | none / refresh / rebuild | business, goals, size, features, logo/photos/words, socials | size x situation + features + addons |
+| pro (6 steps) | pro | role, goals, portfolio extras, resume/samples/headshot, LinkedIn | `size.portfolio` + extras (`casestudies` 300, `testimonials` 100, shared gallery/blog/booking/languages) |
+| brand (6 steps) | brand | business, brand feel, package (essentials / identity / cleanup) | fixed package price |
+
+Sizes one/small/full/large = 500/1,800/2,600/3,800; refresh x0.65; nothing below `minimum` (500); an online store
+never below `storeFloor` (3,500); on the site path logo none adds Brand Essentials, identity adds the Identity
+System, refresh adds `logoCleanup` (200). Links can preselect `?situation=`, `?size=` and `?brand=essentials|identity|cleanup`
+(which jumps to the branding path). Email subjects read "Website quote request", "Portfolio site request" or
+"Branding request". The only hard-coded number is the Yoergoods bar on the pricing comparison chart
 (`--lo`/`--hi` as a % of a $16k axis).
 
 ## SEO built in
