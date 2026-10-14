@@ -125,7 +125,7 @@
     "branding": {
       "essentials": {
         "name": "Brand Essentials",
-        "price": 750,
+        "price": 300,
         "turnaround": "7 to 10 days",
         "blurb": "A clean, professional look for a business that is just getting started.",
         "items": [
@@ -154,17 +154,6 @@
   },
   "newsletterEndpoint": "",
   "ai": {
-    "powerHour": {
-      "price": 129,
-      "minutes": 60,
-      "bookUrl": ""
-    },
-    "teamTuneUp": {
-      "price": 299,
-      "minutes": 90,
-      "seats": 4,
-      "bookUrl": ""
-    },
     "bundlePrice": 79
   },
   "guides": {

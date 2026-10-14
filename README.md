@@ -128,11 +128,10 @@ the script. Then run `build.ps1`.
   checked 30 Sep 2026. Market numbers are hard-coded in `src\pages\pricing\index.html`; your own prices come
   from site.json. Re-check the sources every few months.
 
-## AI help, guides, portfolio sites (added 2026-10-04)
+## AI guides, portfolio sites (added 2026-10-04; AI sessions removed 2026-10-13)
 
-- `/ai/` sells two live sessions (AI Power Hour, AI Tune-Up). Prices and booking links live in site.json under
-  `ai`. With `bookUrl` empty the buttons are "Book by email"; paste a Cal.com or Calendly event URL (with its Stripe
-  payment step) and they become "Pick a time".
+- AI sessions were dropped on 2026-10-13. `/ai/` is now a noindex page that forwards to `/guides/` (canonical
+  /guides/) so old links still land. Only `ai.bundlePrice` remains in site.json.
 - `/guides/` and `/guides/<slug>/` are the five guide sales pages. The catalog is site.json `guides` (title, price,
   tag, promise, pages, buyUrl). With `buyUrl` empty a page shows "Coming soon" with a notify form; paste the
   Lemon Squeezy or Gumroad checkout URL and it flips to "Buy the guide" (structured data flips PreOrder to InStock).
@@ -158,7 +157,7 @@ Modelled on a local competitor's tiers, priced 10 to 20% under them as introduct
 | Custom Business Website | custom / {{price.custom}} | $3,500 |
 | Website Refresh | refresh / {{price.refresh}} | $500 |
 | Portfolio Site | pricing.portfolio.from | $500 |
-| Brand Essentials | pricing.branding.essentials | $750 |
+| Brand Essentials | pricing.branding.essentials | $300 |
 | Brand Identity System | pricing.branding.identity | $1,750 |
 
 Quote builder: sizes one/small/full/large = 500/1,800/2,600/3,800, portfolio 500, brandonly 0; refresh x0.65;

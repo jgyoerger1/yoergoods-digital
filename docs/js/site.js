@@ -43,7 +43,7 @@
     btn.addEventListener('click', function () { set(!dd.classList.contains('is-open')); });
     dd.addEventListener('keydown', function (e) { if (e.key === 'Escape') { set(false); btn.focus(); } });
     document.addEventListener('click', function (e) { if (!dd.contains(e.target)) set(false); });
-    var mine = ['/portfolio-websites/', '/branding/', '/ai/', '/guides/'].some(function (p) { return here.indexOf(p) > -1; });
+    var mine = ['/portfolio-websites/', '/branding/', '/guides/'].some(function (p) { return here.indexOf(p) > -1; });
     if (mine) btn.setAttribute('aria-current', 'page');
   });
 

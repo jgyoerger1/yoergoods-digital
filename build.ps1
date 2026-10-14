@@ -191,7 +191,7 @@ Get-ChildItem $pagesDir -Recurse -Filter *.html | ForEach-Object {
   }
   $body = $raw.Substring($sep + 4).TrimStart("-").TrimStart("`r", "`n")
   $path = if ($fm['path']) { $fm['path'] } else { throw "No path in $($_.FullName)" }
-  $canonical = "$domain$base$path"
+  $canonical = if ($fm['canonical']) { "$domain$base" + $fm['canonical'] } else { "$domain$base$path" }
   $robots = if ($fm['robots']) { $fm['robots'] } else { 'index, follow, max-image-preview:large, max-snippet:-1' }
   $ogtitle = if ($fm['ogtitle']) { $fm['ogtitle'] } else { $fm['title'] }
   $scripts = ''

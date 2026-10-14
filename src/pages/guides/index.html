@@ -6,7 +6,7 @@ bodyclass: page-guides
 ---
 <section class="page-hero">
   <div class="container">
-    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="{{base}}/">Home</a></li><li><a href="{{base}}/ai/">AI help</a></li><li aria-current="page">Guides</li></ol>
+    <ol class="crumbs" aria-label="Breadcrumb"><li><a href="{{base}}/">Home</a></li><li aria-current="page">AI guides</li></ol>
     <p class="eyebrow">Guides</p>
     <h1 class="h1">AI, in plain English, from someone who uses it all day.</h1>
     <p class="lede">Five guides, one job each. Every one is a PDF you can read in an evening plus a prompt library you can paste from the next morning, and each is updated for a year as the tools change. Buy one, or all five for {{site.ai.bundlePrice|money}}.</p>
@@ -48,7 +48,7 @@ bodyclass: page-guides
     </div>
   </div>
 </section>
-<section class="section--tight" aria-labelledby="free-title">
+<section class="section--tight" id="free" aria-labelledby="free-title">
   <div class="container">
     <div class="lead" data-reveal>
       <div>
@@ -72,6 +72,21 @@ bodyclass: page-guides
     </div>
   </div>
 </section>
+<section class="section" aria-labelledby="who-title">
+  <div class="container">
+    <div class="section__head" data-reveal>
+      <p class="eyebrow">Who wrote these</p>
+      <h2 class="h2" id="who-title">A technology director who uses these tools all day, not a course seller.</h2>
+      <p class="lede">I run enterprise technology programs for a living, build websites and tools with Claude Code on the side, and have taught Copilot to rooms of people who had it and didn't use it. Every guide is written from what actually stuck.</p>
+    </div>
+    <ul class="bullets-2" data-reveal-group>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Practical over clever.</strong> If a workflow needs a 400-word prompt to work, it won't survive a Tuesday. The prompts here are short and reusable.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Honest about limits.</strong> Each guide covers where these tools are confidently wrong, and what should never be pasted into one.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Tool-agnostic.</strong> Copilot inside Microsoft 365, Claude, ChatGPT. The patterns transfer; the buttons differ, and the guides show where they are.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><strong>Built, not just talked about.</strong> The websites in my <a href="{{base}}/work/">portfolio</a> were built with the exact methods in the Claude Code guide.</span></li>
+    </ul>
+  </div>
+</section>
 <section class="section section--light faq" aria-labelledby="gfaq-title">
   <div class="container">
     <div class="section__head" data-reveal><p class="eyebrow">How the guides work</p><h2 class="h2" id="gfaq-title">Format, updates and refunds.</h2></div>
@@ -83,5 +98,5 @@ bodyclass: page-guides
   </div>
 </section>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{site.domain}}{{base}}/"},{"@type":"ListItem","position":2,"name":"AI help","item":"{{site.domain}}{{base}}/ai/"},{"@type":"ListItem","position":3,"name":"Guides","item":"{{site.domain}}{{base}}/guides/"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{site.domain}}{{base}}/"},{"@type":"ListItem","position":2,"name":"AI guides","item":"{{site.domain}}{{base}}/guides/"}]}
 </script>
