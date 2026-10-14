@@ -1,7 +1,7 @@
-title: Build Your Website Quote in 3 Minutes | Yoergoods Digital
-description: Answer a few plain-English questions about the website you need and see a planning estimate instantly. Add your current site, socials, logo and photos. Your real quote is fixed-price and in writing.
+title: Build Your Quote: Websites, Portfolio Sites and Branding | Yoergoods Digital
+description: Answer a few plain-English questions about the website, portfolio site or branding you need and see a planning estimate instantly. Add your current site, socials, logo, resume or photos. Your real quote is fixed-price and in writing.
 path: /quote/
-ogtitle: Build your website quote in three minutes
+ogtitle: Build your quote in three minutes
 bodyclass: page-quote
 scripts: quote
 ---
@@ -10,24 +10,24 @@ scripts: quote
     <div class="quote__head">
       <ol class="crumbs" aria-label="Breadcrumb"><li><a href="{{base}}/">Home</a></li><li aria-current="page">Quote builder</li></ol>
       <p class="eyebrow">Quote builder</p>
-      <h1 class="h1" id="quote-title">Let's figure out what your site needs.</h1>
-      <p class="lede">Seven quick questions. You'll see a planning range update as you go, and I'll get everything I need to send you a real, fixed-price quote. No account, no sales call booked behind your back.</p>
+      <h1 class="h1" id="quote-title">Let's figure out what you need.</h1>
+      <p class="lede">A few quick questions for a business website, a portfolio site or branding. You'll see a planning range update as you go, and I'll get everything I need to send you a real, fixed-price quote. No account, no sales call booked behind your back.</p>
     </div>
     <div class="quote__grid">
       <div class="quote__main">
         <form id="quote-form" novalidate autocomplete="on">
           <ol class="qprogress" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ol>
 
-          <!-- 1 -->
+          <!-- 1: what they need (sets the path: site, pro or brand) -->
           <fieldset class="qstep" data-step="1" data-require="situation" data-require-msg="Pick the one that sounds most like you.">
-            <span class="qstep__k">Step 1 of 7</span>
-            <legend class="qstep__t">Where are you starting from?</legend>
-            <p>There's no wrong answer. This just tells me whether we're building from scratch or working with what you have.</p>
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 1</span>What can I help with?</legend>
+            <p>Pick the closest fit. The next questions change to match, so you only answer what matters for you.</p>
             <div class="opts">
-              <label class="opt"><input type="radio" name="situation" value="none"><span class="opt__body"><span class="opt__title">I don't have a website</span><span class="opt__desc">Maybe a Facebook page, maybe just a phone number.</span></span></label>
-              <label class="opt"><input type="radio" name="situation" value="refresh"><span class="opt__body"><span class="opt__title">I have one, it needs a refresh</span><span class="opt__desc">Keep the content, fix the look, speed and phone layout.</span></span></label>
-              <label class="opt"><input type="radio" name="situation" value="rebuild"><span class="opt__body"><span class="opt__title">I have one, I want to start over</span><span class="opt__desc">It's not worth saving. New site, same business.</span></span></label>
-              <label class="opt"><input type="radio" name="situation" value="pro"><span class="opt__body"><span class="opt__title">I'm a professional, not a business</span><span class="opt__desc">A portfolio site that separates you from the rest of the pack.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="none"><span class="opt__body"><span class="opt__title">A website for my business</span><span class="opt__desc">I don't have one yet. Maybe a Facebook page, maybe just a phone number.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="refresh"><span class="opt__body"><span class="opt__title">Refresh my business website</span><span class="opt__desc">Keep the content, fix the look, speed and phone layout.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="rebuild"><span class="opt__body"><span class="opt__title">Rebuild my business website</span><span class="opt__desc">The old one isn't worth saving. New site, same business.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="pro"><span class="opt__body"><span class="opt__title">A portfolio site for me</span><span class="opt__desc">For professionals and job seekers: separate yourself from the rest of the pack.</span></span></label>
+              <label class="opt"><input type="radio" name="situation" value="brand"><span class="opt__body"><span class="opt__title">A logo or brand</span><span class="opt__desc">Branding on its own, no website needed.</span></span></label>
             </div>
             <div class="field" data-if-site hidden>
               <label for="currentSite">Your current website</label>
@@ -36,15 +36,19 @@ scripts: quote
             </div>
           </fieldset>
 
-          <!-- 2 -->
-          <fieldset class="qstep" data-step="2" data-require="business" data-require-msg="Tell me what the business is, even in three words.">
-            <span class="qstep__k">Step 2 of 7</span>
-            <legend class="qstep__t">What's the business, and what should the site do?</legend>
-            <div class="field">
+          <!-- 2: about the business, or about the person -->
+          <fieldset class="qstep" data-step="2" data-require="business,role" data-require-msg="Tell me what the business is, even in three words." data-require-msg-pro="Tell me what you do, even in a few words.">
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 2</span><span data-for="site">What's the business, and what should the site do?</span><span data-for="pro">Tell me about you, and what the site is for.</span><span data-for="brand">What's the business, and how should it feel?</span></legend>
+            <div class="field" data-for="site brand">
               <label for="business">The business</label>
               <input type="text" id="business" name="business" placeholder="e.g. Landscaping company in Stow, or a mobile dog groomer" maxlength="140" required>
             </div>
-            <div class="qgroup">
+            <div class="field" data-for="pro">
+              <label for="role">What do you do?</label>
+              <input type="text" id="role" name="role" placeholder="e.g. Project manager in healthcare, mechanical engineer, UX designer" maxlength="140" required>
+              <span class="field__hint">Your current role, or the one you're aiming for.</span>
+            </div>
+            <div class="qgroup" data-for="site">
               <span class="field__label">Pick everything that matters (optional)</span>
               <div class="opts opts--3">
                 <label class="opt"><input type="checkbox" name="goals" value="found"><span class="opt__body"><span class="opt__title">Get found on Google</span></span></label>
@@ -55,29 +59,54 @@ scripts: quote
                 <label class="opt"><input type="checkbox" name="goals" value="trust"><span class="opt__body"><span class="opt__title">Look credible and established</span></span></label>
               </div>
             </div>
+            <div class="qgroup" data-for="pro">
+              <span class="field__label">What's it for? Pick everything that applies (optional)</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="checkbox" name="pgoals" value="interviews"><span class="opt__body"><span class="opt__title">Land interviews for a new role</span></span></label>
+                <label class="opt"><input type="checkbox" name="pgoals" value="clients"><span class="opt__body"><span class="opt__title">Win freelance or consulting clients</span></span></label>
+                <label class="opt"><input type="checkbox" name="pgoals" value="work"><span class="opt__body"><span class="opt__title">Show my work samples</span></span></label>
+                <label class="opt"><input type="checkbox" name="pgoals" value="linkedin"><span class="opt__body"><span class="opt__title">Stand out on LinkedIn</span></span></label>
+                <label class="opt"><input type="checkbox" name="pgoals" value="brand"><span class="opt__body"><span class="opt__title">Build a personal brand</span></span></label>
+                <label class="opt"><input type="checkbox" name="pgoals" value="switch"><span class="opt__body"><span class="opt__title">Change careers</span></span></label>
+              </div>
+            </div>
+            <div class="qgroup" data-for="brand">
+              <span class="field__label">How should people feel when they see it? (optional)</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="checkbox" name="feel" value="trust"><span class="opt__body"><span class="opt__title">Trustworthy and established</span></span></label>
+                <label class="opt"><input type="checkbox" name="feel" value="modern"><span class="opt__body"><span class="opt__title">Modern and clean</span></span></label>
+                <label class="opt"><input type="checkbox" name="feel" value="local"><span class="opt__body"><span class="opt__title">Friendly and local</span></span></label>
+                <label class="opt"><input type="checkbox" name="feel" value="premium"><span class="opt__body"><span class="opt__title">Premium</span></span></label>
+                <label class="opt"><input type="checkbox" name="feel" value="rugged"><span class="opt__body"><span class="opt__title">Rugged and outdoorsy</span></span></label>
+                <label class="opt"><input type="checkbox" name="feel" value="playful"><span class="opt__body"><span class="opt__title">Playful</span></span></label>
+              </div>
+            </div>
           </fieldset>
 
-          <!-- 3 -->
-          <fieldset class="qstep" data-step="3" data-require="size" data-require-msg="Pick a size. You can change it later, nothing is locked.">
-            <span class="qstep__k">Step 3 of 7</span>
-            <legend class="qstep__t">How big a site are we talking?</legend>
-            <p>Think in pages. If you're not sure, a small business website is the right guess for most local businesses. Selling online? Pick any size and tick Online store in the next step.</p>
-            <div class="opts">
-              <label class="opt"><input type="radio" name="size" value="portfolio"><span class="opt__body"><span class="opt__title">Portfolio site</span><span class="opt__desc">One page for a person: your story, 4 to 6 work samples, resume download, contact.</span></span></label>
+          <!-- 3: website size, or branding package (portfolio skips this step) -->
+          <fieldset class="qstep" data-step="3" data-paths="site brand" data-require="size,package" data-require-msg="Pick a size. You can change it later, nothing is locked." data-require-msg-brand="Pick the package that sounds closest. Nothing is locked.">
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 3</span><span data-for="site">How big a site are we talking?</span><span data-for="brand">Which branding package fits?</span></legend>
+            <p data-for="site">Think in pages. If you're not sure, a small business website is the right guess for most local businesses. Selling online? Pick any size and tick Online store in the next step.</p>
+            <p data-for="brand">Both packages are fixed prices. If you already have a logo you mostly like, a cleanup might be all you need.</p>
+            <div class="opts" data-for="site">
               <label class="opt"><input type="radio" name="size" value="one"><span class="opt__body"><span class="opt__title">One-page website</span><span class="opt__desc">Everything on a single scrolling page, or one focused landing page. Perfect for a new business or a single service.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="small"><span class="opt__body"><span class="opt__title">Small business website</span><span class="opt__desc">Up to six pages: home, services, about, work, contact.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="full"><span class="opt__body"><span class="opt__title">Bigger small business site</span><span class="opt__desc">Seven to twelve pages, usually one per service or location, written to be found.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="large"><span class="opt__body"><span class="opt__title">Custom build</span><span class="opt__desc">More than twelve pages, member areas, custom tools, or something that doesn't fit a box. We'll scope it together.</span></span></label>
-              <label class="opt"><input type="radio" name="size" value="brandonly"><span class="opt__body"><span class="opt__title">No website, just branding</span><span class="opt__desc">A logo or full brand identity on its own. Pick the package in step 5.</span></span></label>
+            </div>
+            <div class="opts opts--1" data-for="brand">
+              <label class="opt"><input type="radio" name="package" value="essentials"><span class="opt__body"><span class="opt__title">{{site.pricing.branding.essentials.name}}</span><span class="opt__desc">Logo plus an icon version, colors and fonts, every file type. 7 to 10 days.</span><span class="opt__price">{{site.pricing.branding.essentials.price|money}}</span></span></label>
+              <label class="opt"><input type="radio" name="package" value="identity"><span class="opt__body"><span class="opt__title">{{site.pricing.branding.identity.name}}</span><span class="opt__desc">Full logo suite, brand guide, social templates and business cards. 3 to 4 weeks.</span><span class="opt__price">{{site.pricing.branding.identity.price|money}}</span></span></label>
+              <label class="opt"><input type="radio" name="package" value="cleanup"><span class="opt__body"><span class="opt__title">Clean up the logo I have</span><span class="opt__desc">A redraw and a modern set of files for a logo you already like.</span><span class="opt__price">{{site.pricing.estimate.addons.logoCleanup|money}}</span></span></label>
             </div>
           </fieldset>
 
-          <!-- 4 -->
-          <fieldset class="qstep" data-step="4">
-            <span class="qstep__k">Step 4 of 7</span>
-            <legend class="qstep__t">Anything special?</legend>
-            <p>A contact or quote form is always included. Tick anything else you know you want. Skip if you're not sure.</p>
-            <div class="opts">
+          <!-- 4: website features, or what goes on the portfolio (branding skips this step) -->
+          <fieldset class="qstep" data-step="4" data-paths="site pro">
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 4</span><span data-for="site">Anything special?</span><span data-for="pro">What should it include?</span></legend>
+            <p data-for="site">A contact or quote form is always included. Tick anything else you know you want. Skip if you're not sure.</p>
+            <p data-for="pro">Your story, work samples, a resume download and a contact form are always included. Tick anything extra.</p>
+            <div class="opts" data-for="site">
               <span class="opt opt--inc"><span class="opt__body" style="padding-left:20px"><span class="opt__title">Contact or quote form</span><span class="opt__desc">Lands in your inbox, with spam protection.</span><span class="opt__price">Included</span></span></span>
               <label class="opt"><input type="checkbox" name="features" value="gallery"><span class="opt__body"><span class="opt__title">Photo gallery or portfolio</span><span class="opt__desc">Show your work by project or category.</span></span></label>
               <label class="opt"><input type="checkbox" name="features" value="reviews"><span class="opt__body"><span class="opt__title">Customer reviews</span><span class="opt__desc">Pulled from Google, Rover, Yelp or your inbox.</span></span></label>
@@ -87,14 +116,22 @@ scripts: quote
               <label class="opt"><input type="checkbox" name="features" value="languages"><span class="opt__body"><span class="opt__title">A second language</span><span class="opt__desc">Every page in two languages.</span></span></label>
               <label class="opt"><input type="checkbox" name="features" value="store"><span class="opt__body"><span class="opt__title">Online store</span><span class="opt__desc">Products, cart and checkout.</span></span></label>
             </div>
+            <div class="opts" data-for="pro">
+              <span class="opt opt--inc"><span class="opt__body" style="padding-left:20px"><span class="opt__title">Story, work samples, resume, contact</span><span class="opt__desc">One fast page on your own domain.</span><span class="opt__price">Included</span></span></span>
+              <label class="opt"><input type="checkbox" name="pfeatures" value="casestudies"><span class="opt__body"><span class="opt__title">A page per key project</span><span class="opt__desc">Short case studies: the situation, what you did, what changed.</span></span></label>
+              <label class="opt"><input type="checkbox" name="pfeatures" value="gallery"><span class="opt__body"><span class="opt__title">Image gallery</span><span class="opt__desc">For designs, photos, builds or anything visual.</span></span></label>
+              <label class="opt"><input type="checkbox" name="pfeatures" value="testimonials"><span class="opt__body"><span class="opt__title">Testimonials or references</span><span class="opt__desc">Quotes from managers, clients or colleagues.</span></span></label>
+              <label class="opt"><input type="checkbox" name="pfeatures" value="blog"><span class="opt__body"><span class="opt__title">Articles or writing</span><span class="opt__desc">A place for posts that show how you think.</span></span></label>
+            </div>
           </fieldset>
 
-          <!-- 5 -->
+          <!-- 5: what they already have -->
           <fieldset class="qstep" data-step="5">
-            <span class="qstep__k">Step 5 of 7</span>
-            <legend class="qstep__t">What do you already have?</legend>
-            <p>Most new businesses start with a name and a phone number. That's fine. This just tells me what I'll be helping with.</p>
-            <div class="qgroup">
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 5</span><span data-for="site">What do you already have?</span><span data-for="pro">What do you have so far?</span><span data-for="brand">Anything I should see?</span></legend>
+            <p data-for="site">Most new businesses start with a name and a phone number. That's fine. This just tells me what I'll be helping with.</p>
+            <p data-for="pro">Nothing needs to be polished yet. This tells me where to start.</p>
+            <p data-for="brand">A current logo, signs, colors you like, or brands you admire all help. Everything here is optional.</p>
+            <div class="qgroup" data-for="site">
               <span class="field__label">A logo</span>
               <div class="opts">
                 <label class="opt"><input type="radio" name="logo" value="have"><span class="opt__body"><span class="opt__title">Yes, and I like it</span></span></label>
@@ -103,7 +140,7 @@ scripts: quote
                 <label class="opt"><input type="radio" name="logo" value="identity"><span class="opt__body"><span class="opt__title">The full Brand Identity System</span><span class="opt__desc">Logo suite, brand guide, templates and cards, {{site.pricing.branding.identity.price|money}}.</span></span></label>
               </div>
             </div>
-            <div class="qgroup">
+            <div class="qgroup" data-for="site">
               <span class="field__label">Photos of your work, team or place</span>
               <div class="opts opts--3">
                 <label class="opt"><input type="radio" name="photos" value="have"><span class="opt__body"><span class="opt__title">Plenty</span></span></label>
@@ -111,7 +148,7 @@ scripts: quote
                 <label class="opt"><input type="radio" name="photos" value="none"><span class="opt__body"><span class="opt__title">Not really</span></span></label>
               </div>
             </div>
-            <div class="qgroup">
+            <div class="qgroup" data-for="site">
               <span class="field__label">Written content (what you do, about you, services)</span>
               <div class="opts opts--3">
                 <label class="opt"><input type="radio" name="copy" value="have"><span class="opt__body"><span class="opt__title">Written and ready</span></span></label>
@@ -119,18 +156,44 @@ scripts: quote
                 <label class="opt"><input type="radio" name="copy" value="none"><span class="opt__body"><span class="opt__title">I'd like help writing it</span></span></label>
               </div>
             </div>
+            <div class="qgroup" data-for="pro">
+              <span class="field__label">Your resume</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="radio" name="resume" value="current"><span class="opt__body"><span class="opt__title">Up to date</span></span></label>
+                <label class="opt"><input type="radio" name="resume" value="update"><span class="opt__body"><span class="opt__title">Needs updating</span></span></label>
+                <label class="opt"><input type="radio" name="resume" value="none"><span class="opt__body"><span class="opt__title">I don't have one yet</span></span></label>
+              </div>
+            </div>
+            <div class="qgroup" data-for="pro">
+              <span class="field__label">Work samples (projects, decks, designs, results)</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="radio" name="samples" value="ready"><span class="opt__body"><span class="opt__title">Ready to share</span></span></label>
+                <label class="opt"><input type="radio" name="samples" value="some"><span class="opt__body"><span class="opt__title">Some, scattered around</span></span></label>
+                <label class="opt"><input type="radio" name="samples" value="help"><span class="opt__body"><span class="opt__title">I need help picking them</span></span></label>
+              </div>
+            </div>
+            <div class="qgroup" data-for="pro">
+              <span class="field__label">A headshot</span>
+              <div class="opts opts--3">
+                <label class="opt"><input type="radio" name="headshot" value="have"><span class="opt__body"><span class="opt__title">I have a good one</span></span></label>
+                <label class="opt"><input type="radio" name="headshot" value="phone"><span class="opt__body"><span class="opt__title">Only phone photos</span></span></label>
+                <label class="opt"><input type="radio" name="headshot" value="none"><span class="opt__body"><span class="opt__title">Not yet</span></span></label>
+              </div>
+            </div>
             <div class="qgroup">
               <span class="field__label">Share anything useful (optional)</span>
               <div class="drop" data-drop>
                 <input type="file" id="files" name="files" multiple accept="image/*,.pdf,.svg,.heic,.heif" aria-label="Add files">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M20 16v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3"/></svg>
-                <strong>Drop your logo, a few photos, or screenshots of sites you like</strong>
+                <strong data-for="site">Drop your logo, a few photos, or screenshots of sites you like</strong>
+                <strong data-for="pro">Drop your resume, a headshot, or a few work samples</strong>
+                <strong data-for="brand">Drop your current logo, or images of brands and colors you like</strong>
                 <span>Up to eight files. Photos are shrunk in your browser before sending.</span>
               </div>
               <div class="drop-list" hidden></div>
               <p class="drop-note">Nothing selected yet. Totally optional.</p>
             </div>
-            <div class="qgroup">
+            <div class="qgroup" data-for="site brand">
               <span class="field__label">Where are you online already? (optional)</span>
               <div class="socials">
                 <div class="field"><label for="social_facebook">Facebook</label><input type="text" id="social_facebook" name="social_facebook" placeholder="facebook.com/yourbusiness" autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
@@ -139,15 +202,21 @@ scripts: quote
                 <div class="field"><label for="social_other">Anything else</label><input type="text" id="social_other" name="social_other" placeholder="LinkedIn, TikTok, Yelp, Nextdoor..." autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div>
               </div>
             </div>
+            <div class="qgroup" data-for="pro">
+              <span class="field__label">Where can I see you online? (optional)</span>
+              <div class="socials">
+                <div class="field"><label for="social_linkedin">LinkedIn</label><input type="text" id="social_linkedin" name="social_linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></svg></div>
+                <div class="field"><label for="social_work">Work samples online</label><input type="text" id="social_work" name="social_work" placeholder="GitHub, Behance, Dribbble, Google Drive..." autocomplete="off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg></div>
+              </div>
+            </div>
           </fieldset>
 
-          <!-- 6 -->
+          <!-- 6: timing and budget -->
           <fieldset class="qstep" data-step="6">
-            <span class="qstep__k">Step 6 of 7</span>
-            <legend class="qstep__t">Timing, and your comfort zone.</legend>
-            <p>The budget question is not a trap. It helps me recommend the right size instead of the biggest one.</p>
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 6</span>Timing, and your comfort zone.</legend>
+            <p>The budget question is not a trap. It helps me recommend the right fit instead of the biggest one.</p>
             <div class="qgroup">
-              <span class="field__label">When would you like to be live?</span>
+              <span class="field__label">When would you like it done?</span>
               <div class="opts opts--3">
                 <label class="opt"><input type="radio" name="timeline" value="asap"><span class="opt__body"><span class="opt__title">As soon as possible</span></span></label>
                 <label class="opt"><input type="radio" name="timeline" value="month"><span class="opt__body"><span class="opt__title">In the next month or two</span></span></label>
@@ -157,14 +226,15 @@ scripts: quote
             <div class="qgroup">
               <span class="field__label">What feels comfortable to invest?</span>
               <div class="opts opts--3">
+                <label class="opt" data-for="pro brand"><input type="radio" name="budget" value="u750"><span class="opt__body"><span class="opt__title">Under $750</span></span></label>
                 <label class="opt"><input type="radio" name="budget" value="u1500"><span class="opt__body"><span class="opt__title">Under $1,500</span></span></label>
                 <label class="opt"><input type="radio" name="budget" value="1500-3000"><span class="opt__body"><span class="opt__title">$1,500 to $3,000</span></span></label>
-                <label class="opt"><input type="radio" name="budget" value="3000-6000"><span class="opt__body"><span class="opt__title">$3,000 to $6,000</span></span></label>
-                <label class="opt"><input type="radio" name="budget" value="6000+"><span class="opt__body"><span class="opt__title">More than $6,000</span></span></label>
+                <label class="opt" data-for="site"><input type="radio" name="budget" value="3000-6000"><span class="opt__body"><span class="opt__title">$3,000 to $6,000</span></span></label>
+                <label class="opt" data-for="site"><input type="radio" name="budget" value="6000+"><span class="opt__body"><span class="opt__title">More than $6,000</span></span></label>
                 <label class="opt"><input type="radio" name="budget" value="unsure"><span class="opt__body"><span class="opt__title">Honestly, no idea</span><span class="opt__desc">That's what this is for.</span></span></label>
               </div>
             </div>
-            <div class="qgroup">
+            <div class="qgroup" data-for="site pro">
               <span class="field__label">After launch, would you like me to keep it running? (optional)</span>
               <div class="opts opts--3">
                 <label class="opt"><input type="radio" name="care" value="annual"><span class="opt__body"><span class="opt__title">Yes, yearly</span><span class="opt__desc">{{price.careyear}} a year, two months free</span></span></label>
@@ -174,14 +244,13 @@ scripts: quote
             </div>
           </fieldset>
 
-          <!-- 7 -->
+          <!-- 7: contact -->
           <fieldset class="qstep" data-step="7" data-require="name,email" data-require-msg="A name and an email are all I need to reply.">
-            <span class="qstep__k">Step 7 of 7</span>
-            <legend class="qstep__t">Where should the quote go?</legend>
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 7</span>Where should the quote go?</legend>
             <p>I reply personally within one business day. Your details are used for this quote and nothing else.</p>
             <div class="fields-2">
               <div class="field"><label for="name">Your name</label><input type="text" id="name" name="name" autocomplete="name" required maxlength="120"></div>
-              <div class="field"><label for="businessName">Business name</label><input type="text" id="businessName" name="businessName" autocomplete="organization" maxlength="140"></div>
+              <div class="field" data-for="site brand"><label for="businessName">Business name</label><input type="text" id="businessName" name="businessName" autocomplete="organization" maxlength="140"></div>
               <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" required maxlength="200" inputmode="email"></div>
               <div class="field"><label for="phone">Phone (optional)</label><input type="tel" id="phone" name="phone" autocomplete="tel" maxlength="40" inputmode="tel"></div>
             </div>
@@ -193,7 +262,7 @@ scripts: quote
                 <label class="opt"><input type="radio" name="contactPref" value="Text"><span class="opt__body"><span class="opt__title">Text</span></span></label>
               </div>
             </div>
-            <div class="field"><label for="notes">Anything else I should know? (optional)</label><textarea id="notes" name="notes" maxlength="4000" placeholder="Deadlines, sites you admire, things your current site gets wrong, questions..."></textarea></div>
+            <div class="field"><label for="notes">Anything else I should know? (optional)</label><textarea id="notes" name="notes" maxlength="4000" placeholder="Deadlines, sites or brands you admire, the job you're going after, questions..."></textarea></div>
             <div class="hp" aria-hidden="true"><label for="company">Company</label><input type="text" id="company" name="company" tabindex="-1" autocomplete="off"></div>
           </fieldset>
 
@@ -223,7 +292,7 @@ scripts: quote
       <aside class="quote__side" aria-label="Your planning estimate">
         <div class="estimate">
           <span class="estimate__label">Planning estimate</span>
-          <p class="estimate__empty" data-empty>Pick a size in step 3 and a range appears here. It updates as you answer.</p>
+          <p class="estimate__empty" data-empty>Answer the first few questions and a range appears here. It updates as you go.</p>
           <div class="estimate__range" data-range hidden><span data-low>$0</span> <small>to</small> <span data-high>$0</span></div>
           <ul class="estimate__summary" data-summary></ul>
           <p class="estimate__note">This is a planning range, not a bill. Your actual quote is fixed-price and in writing after a 30-minute call, and the number we agree on is the number you pay.</p>

@@ -469,6 +469,8 @@ html.motion .hero__mark .mk { opacity: 0; }
 .qstep[hidden] { display: none; }
 .qstep__k { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-2); font-weight: 600; }
 .qstep__t { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.3rem); letter-spacing: -0.02em; line-height: 1.08; display: block; }
+.qstep__t .qstep__k { display: block; margin-bottom: 10px; font-family: var(--font-body); line-height: 1.4; }
+.qstep > .qstep__t { padding: 0; margin-bottom: 14px; }
 .qstep__t + p, .qhelp { color: var(--text-2); font-size: 15.5px; max-width: 60ch; }
 .opts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .opts--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }

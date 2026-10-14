@@ -106,7 +106,9 @@
         "store": 1700,
         "reviews": 100,
         "maps": 100,
-        "languages": 400
+        "languages": 400,
+        "casestudies": 300,
+        "testimonials": 100
       },
       "addons": {
         "brand": 750,
