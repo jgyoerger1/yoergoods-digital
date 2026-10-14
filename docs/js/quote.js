@@ -34,9 +34,15 @@
   var val = function (name) { var el = form.elements[name]; return el && typeof el.value === 'string' ? el.value.trim() : ''; };
 
   /* ---------- preselect from ?situation= ---------- */
+  // links from the pricing and branding pages can preselect ?situation=, ?size= and ?brand=essentials|identity
   try {
-    var q = new URLSearchParams(location.search).get('situation');
-    if (q) { var pre = $('input[name="situation"][value="' + q + '"]', form); if (pre) pre.checked = true; }
+    var qs = new URLSearchParams(location.search);
+    var preset = function (name, value) { if (!value) return; var pre = $('input[name="' + name + '"][value="' + value + '"]', form); if (pre) pre.checked = true; };
+    preset('situation', qs.get('situation'));
+    preset('size', qs.get('size'));
+    var brandPick = qs.get('brand');
+    if (brandPick === 'essentials') preset('logo', 'none');
+    if (brandPick === 'identity') preset('logo', 'identity');
   } catch (e) {}
 
   /* ---------- state + estimate ---------- */
@@ -62,12 +68,22 @@
     var mult = (cfg.situationMultiplier && cfg.situationMultiplier[s.situation]) || 1;
     var feats = s.features.reduce(function (n, f) { return n + ((cfg.features || {})[f] || 0); }, 0);
     var add = cfg.addons || {};
+    var brand = (YG.pricing && YG.pricing.branding) || {};
     var extra = 0;
-    if (s.logo === 'none' || s.logo === 'refresh') extra += add.brand || 0;
+    if (s.logo === 'refresh') extra += add.logoCleanup || 0;
+    if (s.logo === 'none') extra += (brand.essentials && brand.essentials.price) || add.brand || 0;
+    if (s.logo === 'identity') extra += (brand.identity && brand.identity.price) || 0;
+    if (s.size === 'brandonly') {
+      // branding on its own: no site, no copy or photo work; nothing to estimate until a package is picked
+      if (s.logo !== 'none' && s.logo !== 'identity') return null;
+      return { mid: extra, low: round50(extra), high: round50(extra) };
+    }
     if (s.copy === 'none') extra += add.copy || 0;
     if (s.copy === 'some') extra += (add.copy || 0) / 2;
     if (s.photos === 'none') extra += add.photos || 0;
-    var mid = base * mult + feats + extra;
+    var site = Math.max(base * mult + feats, cfg.minimum || 0);
+    if (s.features.indexOf('store') > -1) site = Math.max(site, cfg.storeFloor || 0);   // stores start at the Custom tier
+    var mid = site + extra;
     return { mid: mid, low: round50(mid * (cfg.rangeLow || 0.9)), high: round50(mid * (cfg.rangeHigh || 1.15)) };
   };
   var labelOf = function (name, value) {
@@ -93,6 +109,7 @@
     if (!rangeEl) return;
     if (!est) { rangeEl.hidden = true; if (emptyEl) emptyEl.hidden = false; shown = { low: 0, high: 0 }; return; }
     rangeEl.hidden = false; if (emptyEl) emptyEl.hidden = true;
+    rangeEl.classList.toggle('is-fixed', est.low === est.high);   // a fixed package price shows as one number
     var lowEl = $('[data-low]', rangeEl), highEl = $('[data-high]', rangeEl);
     if (hasGsap) {
       gsap.to(shown, { low: est.low, high: est.high, duration: 0.8, ease: 'power2.out', overwrite: true, onUpdate: function () { lowEl.textContent = money(shown.low); highEl.textContent = money(shown.high); } });

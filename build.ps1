@@ -38,7 +38,7 @@ $region = if (([string]$site.location -split ',').Count -gt 1) { ([string]$site.
 $yg = [ordered]@{
   name = $site.name; domain = $domain; base = $base; email = $site.email; phone = $site.phone
   endpoint = $site.quoteEndpoint
-  pricing = [ordered]@{ tiers = $site.pricing.tiers; care = $site.pricing.care; estimate = $site.pricing.estimate }
+  pricing = [ordered]@{ tiers = $site.pricing.tiers; care = $site.pricing.care; branding = $site.pricing.branding; estimate = $site.pricing.estimate }
 }
 $config = $yg | ConvertTo-Json -Compress -Depth 10
 
@@ -47,7 +47,13 @@ $sameAs = @()
 foreach ($p in $site.socials.PSObject.Properties) { if ([string]$p.Value) { $sameAs += [string]$p.Value } }
 $offers = @()
 foreach ($t in $site.pricing.tiers) {
-  $offers += [ordered]@{ '@type' = 'Offer'; name = ([string]$t.name + ' website'); description = [string]$t.blurb; price = [string]$t.from; priceCurrency = 'USD'; url = "$domain$base/#pricing" }
+  $offers += [ordered]@{ '@type' = 'Offer'; name = [string]$t.name; description = [string]$t.blurb; price = [string]$t.from; priceCurrency = 'USD'; url = "$domain$base/pricing/" }
+}
+if ($site.pricing.branding) {
+  foreach ($bp in $site.pricing.branding.PSObject.Properties) {
+    $b = $bp.Value
+    $offers += [ordered]@{ '@type' = 'Offer'; name = [string]$b.name; description = [string]$b.blurb; price = [string]$b.price; priceCurrency = 'USD'; url = "$domain$base/branding/" }
+  }
 }
 $org = [ordered]@{
   '@context' = 'https://schema.org'; '@type' = 'ProfessionalService'; '@id' = "$domain$base/#org"

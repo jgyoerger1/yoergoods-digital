@@ -145,6 +145,28 @@ the script. Then run `build.ps1`.
   quote builder has a "professional, not a business" starting point plus a "Portfolio site" size ($500 base).
 - Services is now a dropdown (Websites, Portfolio sites, AI help, Guides) on desktop and grouped in the mobile menu.
 
+## Pricing structure (2026-10-13)
+
+Modelled on a local competitor's tiers, priced 10 to 20% under them as introductory rates. All prices live in
+`src/data/site.json` under `pricing`; the cards come from `src/partials/pricing-tiers.html` (home + pricing) and
+`src/partials/branding-tiers.html` (pricing + /branding/), so edit them once.
+
+| Offer | id / token | From |
+|---|---|---|
+| One-Page Website | launch / {{price.launch}} | $500 |
+| Small Business Website | grow / {{price.grow}} | $1,800 |
+| Custom Business Website | custom / {{price.custom}} | $3,500 |
+| Website Refresh | refresh / {{price.refresh}} | $500 |
+| Portfolio Site | pricing.portfolio.from | $500 |
+| Brand Essentials | pricing.branding.essentials | $750 |
+| Brand Identity System | pricing.branding.identity | $1,750 |
+
+Quote builder: sizes one/small/full/large = 500/1,800/2,600/3,800, portfolio 500, brandonly 0; refresh x0.65;
+nothing below `minimum` (500); an online store never below `storeFloor` (3,500); logo none adds Brand Essentials,
+identity adds the Identity System, refresh adds `logoCleanup` (200). Links can preselect `?situation=`, `?size=`
+and `?brand=essentials|identity`. The only hard-coded number is the Yoergoods bar on the pricing comparison chart
+(`--lo`/`--hi` as a % of a $16k axis).
+
 ## SEO built in
 
 Per-page titles and descriptions, canonical URLs, Open Graph + Twitter cards with a rendered 1200x630 image,

@@ -20,35 +20,49 @@
     "tiers": [
       {
         "id": "launch",
-        "name": "Launch",
-        "from": 800,
+        "name": "One-Page Website",
+        "from": 500,
         "tag": "New businesses",
-        "blurb": "For businesses that need to exist online, properly, and fast.",
+        "blurb": "Everything a new business needs, on one fast, polished page.",
         "items": [
-          "One page or up to three pages",
+          "One scrolling page or a focused landing page",
           "Mobile-first design, fast on every phone",
           "Contact or quote form to your inbox",
           "Domain, hosting and Google Business set up",
-          "Typical turnaround: two weeks"
+          "Typical turnaround: one to two weeks"
         ]
       },
       {
         "id": "grow",
-        "name": "Grow",
-        "from": 1900,
+        "name": "Small Business Website",
+        "from": 1800,
         "tag": "Most popular",
-        "blurb": "For businesses ready to win work from their website.",
+        "blurb": "A complete site built to be found on Google and win work.",
         "items": [
-          "Up to eight pages, one per service or audience",
+          "Up to six pages: home, services, about, work, contact",
           "Service pages written to be found on Google",
-          "Portfolio or photo gallery",
-          "Quote builder or booking form",
+          "Photo gallery or portfolio of your work",
+          "Quote or lead form with photo upload",
           "Analytics, search setup and 30 days of fixes"
         ]
       },
       {
+        "id": "custom",
+        "name": "Custom Business Website",
+        "from": 3500,
+        "tag": "Stores and custom builds",
+        "blurb": "For online stores, member areas and tools your customers use.",
+        "items": [
+          "Online store with secure checkout",
+          "Customer accounts or member areas",
+          "Custom tools: calculators, quote builders, portals",
+          "Connections to the software you already use",
+          "A written plan and weekly updates throughout"
+        ]
+      },
+      {
         "id": "refresh",
-        "name": "Refresh",
+        "name": "Website Refresh",
         "from": 500,
         "tag": "Existing sites",
         "blurb": "For sites that need a reset, not a rebuild.",
@@ -73,37 +87,69 @@
     },
     "estimate": {
       "size": {
-        "one": 800,
-        "small": 1600,
-        "full": 2800,
-        "large": 4300,
+        "one": 500,
+        "small": 1800,
+        "full": 2600,
+        "large": 3800,
         "portfolio": 500
       },
       "situationMultiplier": {
         "none": 1,
-        "refresh": 0.625,
+        "refresh": 0.65,
         "rebuild": 1,
         "pro": 1
       },
       "features": {
         "gallery": 200,
-        "blog": 275,
-        "booking": 225,
-        "store": 1200,
+        "blog": 300,
+        "booking": 250,
+        "store": 1700,
         "reviews": 100,
         "maps": 100,
         "languages": 400
       },
       "addons": {
-        "brand": 300,
+        "brand": 750,
+        "logoCleanup": 200,
         "copy": 325,
         "photos": 175
       },
       "rangeLow": 1,
-      "rangeHigh": 1.2
+      "rangeHigh": 1.2,
+      "minimum": 500,
+      "storeFloor": 3500
     },
     "portfolio": {
       "from": 500
+    },
+    "branding": {
+      "essentials": {
+        "name": "Brand Essentials",
+        "price": 750,
+        "turnaround": "7 to 10 days",
+        "blurb": "A clean, professional look for a business that is just getting started.",
+        "items": [
+          "Primary logo plus a simple icon version",
+          "Color palette and font pairing",
+          "Files for web, print and social (PNG, SVG, PDF)",
+          "Two rounds of revisions",
+          "Delivered in 7 to 10 days"
+        ]
+      },
+      "identity": {
+        "name": "Brand Identity System",
+        "price": 1750,
+        "turnaround": "3 to 4 weeks",
+        "blurb": "The full kit, so everything you put out looks like it belongs together.",
+        "items": [
+          "Everything in Brand Essentials",
+          "Full logo suite: horizontal, stacked, icon and one-color",
+          "One-page brand guide: colors, fonts and how to use them",
+          "Social media profile and post templates",
+          "Print-ready business card design",
+          "Delivered in 3 to 4 weeks"
+        ]
+      }
     }
   },
   "newsletterEndpoint": "",

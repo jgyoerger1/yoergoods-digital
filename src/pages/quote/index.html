@@ -61,13 +61,14 @@ scripts: quote
           <fieldset class="qstep" data-step="3" data-require="size" data-require-msg="Pick a size. You can change it later, nothing is locked.">
             <span class="qstep__k">Step 3 of 7</span>
             <legend class="qstep__t">How big a site are we talking?</legend>
-            <p>Think in pages. If you're not sure, Small is the right guess for most local businesses.</p>
+            <p>Think in pages. If you're not sure, a small business website is the right guess for most local businesses. Selling online? Pick any size and tick Online store in the next step.</p>
             <div class="opts">
               <label class="opt"><input type="radio" name="size" value="portfolio"><span class="opt__body"><span class="opt__title">Portfolio site</span><span class="opt__desc">One page for a person: your story, 4 to 6 work samples, resume download, contact.</span></span></label>
-              <label class="opt"><input type="radio" name="size" value="one"><span class="opt__body"><span class="opt__title">One page</span><span class="opt__desc">Everything on a single scrolling page. Perfect for a new business or a single service.</span></span></label>
-              <label class="opt"><input type="radio" name="size" value="small"><span class="opt__body"><span class="opt__title">Small site</span><span class="opt__desc">Up to five pages: home, services, about, work, contact.</span></span></label>
-              <label class="opt"><input type="radio" name="size" value="full"><span class="opt__body"><span class="opt__title">Full site</span><span class="opt__desc">Six to twelve pages, usually one per service or location, written to be found.</span></span></label>
-              <label class="opt"><input type="radio" name="size" value="large"><span class="opt__body"><span class="opt__title">Larger or unusual</span><span class="opt__desc">More than twelve pages, or something that doesn't fit a box. We'll scope it together.</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="one"><span class="opt__body"><span class="opt__title">One-page website</span><span class="opt__desc">Everything on a single scrolling page, or one focused landing page. Perfect for a new business or a single service.</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="small"><span class="opt__body"><span class="opt__title">Small business website</span><span class="opt__desc">Up to six pages: home, services, about, work, contact.</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="full"><span class="opt__body"><span class="opt__title">Bigger small business site</span><span class="opt__desc">Seven to twelve pages, usually one per service or location, written to be found.</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="large"><span class="opt__body"><span class="opt__title">Custom build</span><span class="opt__desc">More than twelve pages, member areas, custom tools, or something that doesn't fit a box. We'll scope it together.</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="brandonly"><span class="opt__body"><span class="opt__title">No website, just branding</span><span class="opt__desc">A logo or full brand identity on its own. Pick the package in step 5.</span></span></label>
             </div>
           </fieldset>
 
@@ -95,10 +96,11 @@ scripts: quote
             <p>Most new businesses start with a name and a phone number. That's fine. This just tells me what I'll be helping with.</p>
             <div class="qgroup">
               <span class="field__label">A logo</span>
-              <div class="opts opts--3">
+              <div class="opts">
                 <label class="opt"><input type="radio" name="logo" value="have"><span class="opt__body"><span class="opt__title">Yes, and I like it</span></span></label>
-                <label class="opt"><input type="radio" name="logo" value="refresh"><span class="opt__body"><span class="opt__title">Yes, but it needs work</span></span></label>
-                <label class="opt"><input type="radio" name="logo" value="none"><span class="opt__body"><span class="opt__title">No logo yet</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="refresh"><span class="opt__body"><span class="opt__title">Yes, but it needs work</span><span class="opt__desc">A cleanup and a modern set of files.</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="none"><span class="opt__body"><span class="opt__title">No logo yet: Brand Essentials</span><span class="opt__desc">Logo, colors and fonts, {{site.pricing.branding.essentials.price|money}}.</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="identity"><span class="opt__body"><span class="opt__title">The full Brand Identity System</span><span class="opt__desc">Logo suite, brand guide, templates and cards, {{site.pricing.branding.identity.price|money}}.</span></span></label>
               </div>
             </div>
             <div class="qgroup">
