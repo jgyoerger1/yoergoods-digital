@@ -9,11 +9,14 @@
 #   powershell -NoProfile -ExecutionPolicy Bypass -File tools\indexnow.ps1             # every URL in docs\sitemap.xml
 #   powershell -NoProfile -ExecutionPolicy Bypass -File tools\indexnow.ps1 -ChangedSince 2026-10-14
 #   powershell -NoProfile -ExecutionPolicy Bypass -File tools\indexnow.ps1 -Url https://www.yoergoodsdigital.com/pricing/
+#   ... -Url "https://www.yoergoodsdigital.com/,https://www.yoergoodsdigital.com/pricing/"   # several: ONE quoted string
 #   powershell -NoProfile -ExecutionPolicy Bypass -File tools\indexnow.ps1 -Live       # read the live sitemap instead
 #
 # The key lives in src\data\site.json (indexNowKey); build.ps1 publishes it as docs\<key>.txt from src\<key>.txt.
 # Submit only URLs that really changed. Re-sending an unchanged sitemap every day earns nothing.
 # ASCII only in this file (Windows PowerShell 5.1 reads BOM-less scripts as ANSI).
+# No positional binding: an unquoted "-Url a, b" list once spilled b into -Endpoint and posted to the site itself.
+[CmdletBinding(PositionalBinding = $false)]
 param(
   [string[]]$Url,
   [string]$ChangedSince,
