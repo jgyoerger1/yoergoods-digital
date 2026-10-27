@@ -560,6 +560,12 @@ html.motion .hero__mark .mk { opacity: 0; }
 .estimate__range small { font-size: 1rem; font-weight: 500; color: var(--ink-3); letter-spacing: 0; font-family: var(--font-body); }
 .estimate__empty { color: var(--ink-2); font-size: 15px; }
 .estimate__note { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; padding-top: 14px; border-top: 1px solid var(--line-dark); }
+.estimate__lines { display: grid; gap: 6px; font-size: 14px; padding: 12px 0 14px; border-bottom: 1px solid var(--line-dark); }
+.estimate__lines li { display: flex; justify-content: space-between; gap: 12px; }
+.estimate__lines li span:first-child { color: var(--ink-2); }
+.estimate__lines li span:last-child { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.estimate__lines li:first-child span { color: var(--ink); font-weight: 600; }
+.estimate__lines[hidden] { display: none; }
 .estimate__summary { display: grid; gap: 8px; font-size: 14px; }
 .estimate__summary li { display: flex; justify-content: space-between; gap: 12px; }
 .estimate__summary li span:first-child { color: var(--ink-3); }

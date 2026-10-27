@@ -4,6 +4,9 @@
      pro   = a portfolio site for a person                    6 steps (no size step)
      brand = a logo or brand on its own                       6 steps (no features step)
    Elements carry data-for="site pro brand" to show per path; steps carry data-paths to be skipped.
+   Within the site path a refresh is priced as a fixed package (Tune-Up, Refresh Essentials, Refresh Plus) plus opt-in
+   extras, shown as line items: data-sit / data-sit-not show an element only for (or never for) one situation, and a
+   step with data-skip-size="tuneup" is skipped when that size is picked.
    Pricing comes from window.YG.pricing (built from src/data/site.json). Submission posts JSON (files as base64)
    to window.YG.endpoint, the Apps Script mailer in tools/quote-mailer.gs. With no endpoint set, it falls back to
    Send with Gmail, a copyable summary and a mailto link. */
@@ -17,6 +20,7 @@
   var YG = window.YG || {};
   var cfg = (YG.pricing && YG.pricing.estimate) || {};
   var brandCfg = (YG.pricing && YG.pricing.branding) || {};
+  var refreshCfg = (YG.pricing && YG.pricing.refresh) || null;
   var endpoint = YG.endpoint || '';
   var email = YG.email || '';
   var reduce = false; try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
@@ -26,7 +30,7 @@
   var progress = $('.qprogress');
   var prevBtn = $('[data-prev]', form), nextBtn = $('[data-next]', form), submitBtn = $('[data-submit]', form), errBox = $('.qnav__err', form);
   var done = $('.qdone'), side = $('.estimate');
-  var rangeEl = $('[data-range]', side), emptyEl = $('[data-empty]', side), summaryEl = $('[data-summary]', side);
+  var rangeEl = $('[data-range]', side), emptyEl = $('[data-empty]', side), summaryEl = $('[data-summary]', side), linesEl = $('[data-lines]', side);
   var shown = { low: 0, high: 0 };
 
   /* ---------- helpers ---------- */
@@ -56,8 +60,9 @@
   try {
     var qs = new URLSearchParams(location.search);
     var preset = function (name, value) { if (!value) return; var pre = $('input[name="' + name + '"][value="' + value + '"]', form); if (pre) pre.checked = true; };
-    preset('situation', qs.get('situation'));
-    preset('size', qs.get('size'));
+    var sizePick = qs.get('size');
+    preset('situation', qs.get('situation') || (refreshCfg && refreshCfg[sizePick] ? 'refresh' : ''));
+    preset('size', sizePick);
     var brandPick = qs.get('brand');
     if (brandPick === 'essentials' || brandPick === 'identity' || brandPick === 'cleanup') { preset('situation', 'brand'); preset('package', brandPick); }
   } catch (e) {}
@@ -70,7 +75,8 @@
       currentSite: val('currentSite'), business: val('business'), role: val('role'),
       goals: many('goals'), pgoals: many('pgoals'), feel: many('feel'),
       size: one('size'), pkg: one('package'),
-      features: many('features'), pfeatures: many('pfeatures'),
+      // a tune-up keeps the current site, so the features step is skipped and any earlier ticks are ignored
+      features: situation === 'refresh' && one('size') === 'tuneup' ? [] : many('features'), pfeatures: many('pfeatures'),
       logo: one('logo'), photos: one('photos'), copy: one('copy'),
       resume: one('resume'), samples: one('samples'), headshot: one('headshot'),
       timeline: one('timeline'), budget: one('budget'), care: one('care')
@@ -92,6 +98,26 @@
       var base = (cfg.size && cfg.size.portfolio) || 0;
       return range(Math.max(base + featureSum(s.pfeatures), cfg.minimum || 0));
     }
+    if (s.path === 'site' && s.situation === 'refresh' && refreshCfg) {
+      // a refresh is a fixed package plus only the extras the person asked for, listed line by line
+      var pack = refreshCfg[s.size];
+      if (!pack) return null;
+      var tune = s.size === 'tuneup';
+      var lines = [[pack.name + (tune ? '' : ', ' + pack.pages), pack.price]];
+      if (!tune && s.features.indexOf('store') > -1) {
+        // a store turns a refresh into a Custom Business Website
+        lines = [['Online store build (Custom Business Website tier)', Math.max(cfg.storeFloor || 0, pack.price)]];
+      }
+      if (!tune) s.features.forEach(function (f) { if (f !== 'store' && (cfg.features || {})[f]) lines.push([labelOf('features', f), cfg.features[f]]); });
+      if (s.logo === 'refresh') lines.push(['Logo cleanup', add.logoCleanup || 0]);
+      if (s.logo === 'none' && brandCfg.essentials) lines.push([brandCfg.essentials.name, brandCfg.essentials.price]);
+      if (s.logo === 'identity' && brandCfg.identity) lines.push([brandCfg.identity.name, brandCfg.identity.price]);
+      if (s.copy === 'none') lines.push(['Writing help', add.copy || 0]);
+      if (s.photos === 'none') lines.push(['Photo help', add.photos || 0]);
+      var total = lines.reduce(function (n, l) { return n + l[1]; }, 0);
+      var est = fixed(total); est.lines = lines;
+      return est;
+    }
     if (s.path !== 'site' || !s.size || !cfg.size) return null;
     var mult = (cfg.situationMultiplier && cfg.situationMultiplier[s.situation]) || 1;
     var extra = 0;
@@ -111,7 +137,7 @@
     if (s.path === 'site') {
       if (s.business) rows.push(['Business', s.business]);
       if (s.goals.length) rows.push(['Goals', labels('goals', s.goals)]);
-      if (s.size) rows.push(['Size', labelOf('size', s.size)]);
+      if (s.size) rows.push([s.situation === 'refresh' ? 'Package' : 'Size', labelOf('size', s.size)]);
       if (s.features.length) rows.push(['Extras', labels('features', s.features)]);
       if (s.logo) rows.push(['Logo', labelOf('logo', s.logo)]);
       if (s.photos) rows.push(['Photos', labelOf('photos', s.photos)]);
@@ -135,7 +161,19 @@
     if (s.care && s.path !== 'brand') rows.push(['Care plan', labelOf('care', s.care)]);
     return rows;
   };
+  var renderLines = function (est) {
+    if (!linesEl) return;
+    linesEl.innerHTML = '';
+    var lines = est && est.lines;
+    linesEl.hidden = !(lines && lines.length > 1);   // one line is just the price above it
+    if (linesEl.hidden) return;
+    lines.forEach(function (l, i) {
+      var li = document.createElement('li'); var a = document.createElement('span'), b = document.createElement('span');
+      a.textContent = l[0]; b.textContent = (i ? '+' : '') + money(l[1]); li.appendChild(a); li.appendChild(b); linesEl.appendChild(li);
+    });
+  };
   var renderRange = function (est) {
+    renderLines(est);
     if (!rangeEl) return;
     if (!est) { rangeEl.hidden = true; if (emptyEl) emptyEl.hidden = false; shown = { low: 0, high: 0 }; return; }
     rangeEl.hidden = false; if (emptyEl) emptyEl.hidden = true;
@@ -147,13 +185,24 @@
   };
 
   /* ---------- path: show what belongs to it, hide the rest, renumber the steps ---------- */
-  var currentPath = '';
+  var currentPath = '', currentSit = '', currentSize = '', viewKey = null;
   var activeSteps = function () {
-    return steps.filter(function (st) { var p = st.getAttribute('data-paths'); return !p || !currentPath || p.split(' ').indexOf(currentPath) > -1; });
+    return steps.filter(function (st) {
+      var p = st.getAttribute('data-paths');
+      if (p && currentPath && p.split(' ').indexOf(currentPath) === -1) return false;
+      var skip = st.getAttribute('data-skip-size');
+      return !(skip && skip === currentSize);
+    });
   };
-  var applyPath = function (path) {
-    currentPath = path;
-    $$('[data-for]', form).forEach(function (el) { el.hidden = el.getAttribute('data-for').split(' ').indexOf(path) === -1; });
+  var applyPath = function (path, situation, size) {
+    currentPath = path; currentSit = situation || ''; currentSize = size || '';
+    $$('[data-for], [data-sit], [data-sit-not]', form).forEach(function (el) {
+      var f = el.getAttribute('data-for'), only = el.getAttribute('data-sit'), not = el.getAttribute('data-sit-not');
+      el.hidden = (f !== null && f.split(' ').indexOf(path) === -1) || (only !== null && only !== currentSit) || (not !== null && not === currentSit);
+    });
+    // a choice hidden by a situation change (e.g. a refresh package after switching to "new website") is dropped
+    $$('input[name="size"]:checked', form).forEach(function (i) { var g = i.closest('.opts'); if (g && g.hidden) { i.checked = false; currentSize = ''; } });
+    viewKey = currentPath + '|' + currentSit + '|' + currentSize;
     var act = activeSteps();
     act.forEach(function (st, i) { var lab = $('[data-step-label]', st); if (lab) lab.textContent = 'Step ' + (i + 1) + ' of ' + act.length; });
     dots.forEach(function (d, i) { d.hidden = i >= act.length; });
@@ -162,7 +211,7 @@
 
   var update = function () {
     var s = state();
-    if (s.path !== currentPath) { applyPath(s.path); paintProgress(); }
+    if (s.path + '|' + s.situation + '|' + s.size !== viewKey) { applyPath(s.path, s.situation, s.size); paintProgress(); s = state(); }
     renderRange(estimate(s));
     if (summaryEl) {
       summaryEl.innerHTML = '';
@@ -182,7 +231,8 @@
 
   /* ---------- steps ---------- */
   var setErr = function (msg) { if (errBox) errBox.textContent = msg || ''; };
-  var requireMsg = function (step) { return step.getAttribute('data-require-msg-' + currentPath) || step.getAttribute('data-require-msg') || 'Fill that in to continue.'; };
+  var requireMsg = function (step) { return (currentSit && step.getAttribute('data-require-msg-' + currentSit)) || step.getAttribute('data-require-msg-' + currentPath) || step.getAttribute('data-require-msg') || 'Fill that in to continue.'; };
+  form.addEventListener('change', function () { setErr(''); });   // answering clears the "pick one" nudge
   var validate = function (n) {
     var step = steps[n];
     var need = step.getAttribute('data-require');
@@ -236,7 +286,7 @@
     else { from.hidden = true; reveal(); }
   };
   steps.forEach(function (s, i) { s.hidden = i !== 0; });
-  applyPath(pathOf(one('situation')));
+  applyPath(pathOf(one('situation')), one('situation'), one('size'));
   paintProgress();
   if (nextBtn) nextBtn.addEventListener('click', function () { if (validate(idx)) show(neighbour(1), 1); });
   if (prevBtn) prevBtn.addEventListener('click', function () { setErr(''); show(neighbour(-1), -1); });
@@ -353,6 +403,7 @@
     if (s.currentSite && s.path === 'site') lines.push('Current site: ' + s.currentSite);
     var soc = socialsOf(); Object.keys(soc).forEach(function (k) { lines.push(k.charAt(0).toUpperCase() + k.slice(1) + ': ' + soc[k]); });
     if (est) lines.push('Planning estimate shown: ' + (est.low === est.high ? money(est.low) : money(est.low) + ' to ' + money(est.high)));
+    if (est && est.lines && est.lines.length > 1) est.lines.forEach(function (l, i) { lines.push('  ' + (i ? '+ ' : '') + l[0] + ': ' + money(l[1])); });
     lines.push('');
     var who = [val('name'), val('email'), val('phone')].filter(Boolean).join(' / ');
     if (who) lines.push('Reach me at: ' + who + (val('contactPref') ? ' (prefer ' + val('contactPref').toLowerCase() + ')' : ''));

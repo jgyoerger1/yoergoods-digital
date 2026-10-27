@@ -85,6 +85,47 @@
         ]
       }
     ],
+    "refresh": {
+      "tuneup": {
+        "name": "Website Tune-Up",
+        "price": 250,
+        "pages": "your current site",
+        "blurb": "Keep your site and your platform. I fix the things that cost you customers.",
+        "items": [
+          "Phone layout fixes",
+          "Hours, contact details and photos brought up to date",
+          "Broken links fixed",
+          "Google Business Profile checked and matched",
+          "Stays on Wix, Squarespace, WordPress or GoDaddy"
+        ]
+      },
+      "essentials": {
+        "name": "Refresh Essentials",
+        "price": 500,
+        "pages": "up to 5 pages",
+        "blurb": "A new design on the content you already have. Fits most small business sites.",
+        "items": [
+          "New design for up to 5 pages",
+          "Speed and phone layout fixes",
+          "Updated photos and contact details",
+          "Search cleanup and redirects handled",
+          "Nothing you rely on gets lost"
+        ]
+      },
+      "plus": {
+        "name": "Refresh Plus",
+        "price": 850,
+        "pages": "6 to 12 pages",
+        "blurb": "The same refresh for a bigger site: more services, more locations, more pages.",
+        "items": [
+          "New design for 6 to 12 pages",
+          "Speed and phone layout fixes",
+          "Updated photos and contact details",
+          "Search cleanup and redirects handled",
+          "Nothing you rely on gets lost"
+        ]
+      }
+    },
     "care": {
       "from": 49,
       "annual": 490,
@@ -105,7 +146,6 @@
       },
       "situationMultiplier": {
         "none": 1,
-        "refresh": 0.65,
         "rebuild": 1,
         "pro": 1
       },

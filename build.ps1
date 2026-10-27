@@ -38,6 +38,14 @@ $prices = @{}
 foreach ($t in $site.pricing.tiers) { $prices[[string]$t.id] = [int]$t.from }
 $prices['care'] = [int]$site.pricing.care.from
 $prices['careyear'] = [int]$site.pricing.care.annual
+# refresh packages: {{price.tuneup}}, {{price.refreshessentials}}, {{price.refreshplus}}. The Website Refresh tier's
+# "from" price must equal Refresh Essentials so every "refreshes from" line on the site agrees with the packages.
+if ($site.pricing.refresh) {
+  $prices['tuneup'] = [int]$site.pricing.refresh.tuneup.price
+  $prices['refreshessentials'] = [int]$site.pricing.refresh.essentials.price
+  $prices['refreshplus'] = [int]$site.pricing.refresh.plus.price
+  if ($prices['refresh'] -ne $prices['refreshessentials']) { throw "site.json: tier 'refresh' from ($($prices['refresh'])) must equal pricing.refresh.essentials.price ($($prices['refreshessentials']))." }
+}
 $locality = ([string]$site.location -split ',')[0].Trim()
 $region = if (([string]$site.location -split ',').Count -gt 1) { ([string]$site.location -split ',')[1].Trim() } else { '' }
 
@@ -45,7 +53,7 @@ $region = if (([string]$site.location -split ',').Count -gt 1) { ([string]$site.
 $yg = [ordered]@{
   name = $site.name; domain = $domain; base = $base; email = $site.email; phone = $site.phone
   endpoint = $site.quoteEndpoint
-  pricing = [ordered]@{ tiers = $site.pricing.tiers; care = $site.pricing.care; branding = $site.pricing.branding; estimate = $site.pricing.estimate }
+  pricing = [ordered]@{ tiers = $site.pricing.tiers; care = $site.pricing.care; branding = $site.pricing.branding; refresh = $site.pricing.refresh; estimate = $site.pricing.estimate }
 }
 $config = $yg | ConvertTo-Json -Compress -Depth 10
 
@@ -218,6 +226,7 @@ function Get-ServiceRef([string]$p) {
   return $r
 }
 $fixedPriceNames = @($site.pricing.branding.PSObject.Properties | ForEach-Object { [string]$_.Value.name })
+if ($site.pricing.refresh) { $fixedPriceNames += @($site.pricing.refresh.PSObject.Properties | ForEach-Object { [string]$_.Value.name }) }
 
 # areaServed: cities and counties from site.json serviceArea (Wikipedia titles follow "<Name>,_Ohio")
 $areas = @()
@@ -233,10 +242,20 @@ $offers = @()
 $tierPage = @{ launch = '/new-website/'; refresh = '/website-refresh/' }
 foreach ($t in $site.pricing.tiers) {
   $tid = [string]$t.id
+  if ($tid -eq 'refresh' -and $site.pricing.refresh) { continue }   # the refresh packages below replace the "from" tier
   $svc = $null
   if ($tierPage.ContainsKey($tid)) { $svc = Get-ServiceRef $tierPage[$tid] }
   if (-not $svc) { $svc = [ordered]@{ '@type' = 'Service'; name = [string]$t.name; serviceType = 'Web design'; provider = (New-Ref $orgId) } }
   $offers += [ordered]@{ '@type' = 'Offer'; name = [string]$t.name; description = [string]$t.blurb; url = "$siteRoot/pricing/"; priceCurrency = 'USD'; priceSpecification = (From-Price $t.from); itemOffered = $svc }
+}
+if ($site.pricing.refresh) {
+  foreach ($rp in $site.pricing.refresh.PSObject.Properties) {
+    $r = $rp.Value
+    $svc = Get-ServiceRef '/website-refresh/'
+    if (-not $svc) { $svc = [ordered]@{ '@type' = 'Service'; name = 'Website refresh and redesign'; serviceType = 'Website redesign'; provider = (New-Ref $orgId) } }
+    # refresh packages are fixed prices; optional extras are quoted on top
+    $offers += [ordered]@{ '@type' = 'Offer'; name = [string]$r.name; description = [string]$r.blurb; url = "$siteRoot/website-refresh/"; price = [double]$r.price; priceCurrency = 'USD'; itemOffered = $svc }
+  }
 }
 if ($site.pricing.portfolio) {
   $svc = Get-ServiceRef '/portfolio-websites/'
@@ -331,7 +350,7 @@ function Normalize-Offers($offers, [string]$c) {
   foreach ($o in @($offers)) {
     if ($o -is [System.Collections.IDictionary]) {
       if (-not $o.Contains('url')) { $o['url'] = $c }
-      # site prices are "from" prices except the fixed branding packages
+      # site prices are "from" prices except the fixed branding and refresh packages
       if ($o.Contains('price') -and -not $o.Contains('priceSpecification') -and -not ($fixedPriceNames -contains [string]$o['name'])) {
         $cur = if ($o['priceCurrency']) { [string]$o['priceCurrency'] } else { 'USD' }
         $min = [double]::Parse([string]$o['price'], $inv)

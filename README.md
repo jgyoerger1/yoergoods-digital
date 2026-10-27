@@ -156,7 +156,10 @@ Modelled on a local competitor's tiers, priced 10 to 20% under them as introduct
 | One-Page Website | launch / {{price.launch}} | $500 |
 | Small Business Website | grow / {{price.grow}} | $1,800 |
 | Custom Business Website | custom / {{price.custom}} | $3,500 |
-| Website Refresh | refresh / {{price.refresh}} | $500 |
+| Website Refresh (tier card, "from") | refresh / {{price.refresh}} | $500 (must equal Refresh Essentials; build fails otherwise) |
+| Website Tune-Up (fixed) | pricing.refresh.tuneup / {{price.tuneup}} | $250 |
+| Refresh Essentials (fixed, up to 5 pages) | pricing.refresh.essentials / {{price.refreshessentials}} | $500 |
+| Refresh Plus (fixed, 6 to 12 pages) | pricing.refresh.plus / {{price.refreshplus}} | $850 |
 | Portfolio Site | pricing.portfolio.from | $500 |
 | Brand Essentials | pricing.branding.essentials | $300 |
 | Brand Identity System | pricing.branding.identity | $1,750 |
@@ -167,14 +170,21 @@ recount per path.
 
 | Path | Step 1 choice | Asks | Estimate |
 |---|---|---|---|
-| site (7 steps) | none / refresh / rebuild | business, goals, size, features, logo/photos/words, socials | size x situation + features + addons |
+| site (7 steps) | none / rebuild | business, goals, size, features, logo/photos/words, socials | size x situation + features + addons |
+| site, refresh (7 steps; 6 for a Tune-Up, which skips features) | refresh | business, refresh package (tuneup / essentials / plus), features, logo/photos/words | fixed package + opt-in extras, shown as line items |
 | pro (6 steps) | pro | role, goals, portfolio extras, resume/samples/headshot, LinkedIn | `size.portfolio` + extras (`casestudies` 300, `testimonials` 100, shared gallery/blog/booking/languages) |
 | brand (6 steps) | brand | business, brand feel, package (essentials / identity / cleanup) | fixed package price |
 
-Sizes one/small/full/large = 500/1,800/2,600/3,800; refresh x0.65; nothing below `minimum` (500); an online store
+Sizes one/small/full/large = 500/1,800/2,600/3,800; nothing below `minimum` (500); an online store
 never below `storeFloor` (3,500); on the site path logo none adds Brand Essentials, identity adds the Identity
-System, refresh adds `logoCleanup` (200). Links can preselect `?situation=`, `?size=` and `?brand=essentials|identity|cleanup`
-(which jumps to the branding path). Email subjects read "Website quote request", "Portfolio site request" or
+System, a logo that "needs work" adds `logoCleanup` (200). Refreshes (since 2026-10-26, to stop sticker shock: a
+5-page refresh used to quote $1,150 to $1,400 against a "from $500" headline) are fixed packages from site.json
+`pricing.refresh`; extras are added only when asked for: features, logo cleanup, writing help (copy "none" only,
+"bits and pieces" is free on a refresh), photo help (photos "none"); a store turns it into the Custom tier.
+Elements with `data-sit` / `data-sit-not` show only for (or never for) one situation, and a step with
+`data-skip-size="tuneup"` is skipped for a Tune-Up. Cards come from `src/partials/refresh-tiers.html` (/website-refresh/
+and /pricing/). Links can preselect `?situation=`, `?size=` (`?size=tuneup|essentials|plus` also selects refresh)
+and `?brand=essentials|identity|cleanup` (which jumps to the branding path). Email subjects read "Website quote request", "Portfolio site request" or
 "Branding request". The only hard-coded number is the Yoergoods bar on the pricing comparison chart
 (`--lo`/`--hi` as a % of a $16k axis).
 

@@ -83,15 +83,21 @@ scripts: quote
           </fieldset>
 
           <!-- 3: website size, or branding package (portfolio skips this step) -->
-          <fieldset class="qstep" data-step="3" data-paths="site brand" data-require="size,package" data-require-msg="Pick a size. You can change it later, nothing is locked." data-require-msg-brand="Pick the package that sounds closest. Nothing is locked.">
-            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 3</span><span data-for="site">How big a site are we talking?</span><span data-for="brand">Which branding package fits?</span></legend>
-            <p data-for="site">Think in pages. If you're not sure, a small business website is the right guess for most local businesses. Selling online? Pick any size and tick Online store in the next step.</p>
+          <fieldset class="qstep" data-step="3" data-paths="site brand" data-require="size,package" data-require-msg="Pick a size. You can change it later, nothing is locked." data-require-msg-refresh="Pick the refresh that fits best. You can change it later, nothing is locked." data-require-msg-brand="Pick the package that sounds closest. Nothing is locked.">
+            <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 3</span><span data-for="site" data-sit-not="refresh">How big a site are we talking?</span><span data-for="site" data-sit="refresh">Which refresh fits?</span><span data-for="brand">Which branding package fits?</span></legend>
+            <p data-for="site" data-sit="refresh">All three are fixed prices. Count the pages on your current site: most small business sites have five or fewer. More than twelve? Pick Refresh Plus and tell me in the notes.</p>
+            <p data-for="site" data-sit-not="refresh">Think in pages. If you're not sure, a small business website is the right guess for most local businesses. Selling online? Pick any size and tick Online store in the next step.</p>
             <p data-for="brand">Both packages are fixed prices. If you already have a logo you mostly like, a cleanup might be all you need.</p>
-            <div class="opts" data-for="site">
+            <div class="opts" data-for="site" data-sit-not="refresh">
               <label class="opt"><input type="radio" name="size" value="one"><span class="opt__body"><span class="opt__title">One-page website</span><span class="opt__desc">Everything on a single scrolling page, or one focused landing page. Perfect for a new business or a single service.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="small"><span class="opt__body"><span class="opt__title">Small business website</span><span class="opt__desc">Up to six pages: home, services, about, work, contact.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="full"><span class="opt__body"><span class="opt__title">Bigger small business site</span><span class="opt__desc">Seven to twelve pages, usually one per service or location, written to be found.</span></span></label>
               <label class="opt"><input type="radio" name="size" value="large"><span class="opt__body"><span class="opt__title">Custom build</span><span class="opt__desc">More than twelve pages, member areas, custom tools, or something that doesn't fit a box. We'll scope it together.</span></span></label>
+            </div>
+            <div class="opts opts--1" data-for="site" data-sit="refresh">
+              <label class="opt"><input type="radio" name="size" value="tuneup"><span class="opt__body"><span class="opt__title">{{site.pricing.refresh.tuneup.name}}</span><span class="opt__desc">Keep the site and platform you have. I fix phone layout, hours, contact details, photos and broken links, and match your Google profile.</span><span class="opt__price">{{site.pricing.refresh.tuneup.price|money}}</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="essentials"><span class="opt__body"><span class="opt__title">{{site.pricing.refresh.essentials.name}}</span><span class="opt__desc">A new design on your content, {{site.pricing.refresh.essentials.pages}}. Speed, phone layout and redirects handled.</span><span class="opt__price">{{site.pricing.refresh.essentials.price|money}}</span></span></label>
+              <label class="opt"><input type="radio" name="size" value="plus"><span class="opt__body"><span class="opt__title">{{site.pricing.refresh.plus.name}}</span><span class="opt__desc">The same refresh for a bigger site, {{site.pricing.refresh.plus.pages}}.</span><span class="opt__price">{{site.pricing.refresh.plus.price|money}}</span></span></label>
             </div>
             <div class="opts opts--1" data-for="brand">
               <label class="opt"><input type="radio" name="package" value="essentials"><span class="opt__body"><span class="opt__title">{{site.pricing.branding.essentials.name}}</span><span class="opt__desc">Logo plus an icon version, colors and fonts, every file type. 7 to 10 days.</span><span class="opt__price">{{site.pricing.branding.essentials.price|money}}</span></span></label>
@@ -101,7 +107,7 @@ scripts: quote
           </fieldset>
 
           <!-- 4: website features, or what goes on the portfolio (branding skips this step) -->
-          <fieldset class="qstep" data-step="4" data-paths="site pro">
+          <fieldset class="qstep" data-step="4" data-paths="site pro" data-skip-size="tuneup">
             <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 4</span><span data-for="site">Anything special?</span><span data-for="pro">What should it include?</span></legend>
             <div class="qinc" data-for="site">
               <span class="qinc__k">Always included</span>
@@ -133,7 +139,8 @@ scripts: quote
           <!-- 5: what they already have -->
           <fieldset class="qstep" data-step="5">
             <legend class="qstep__t"><span class="qstep__k" data-step-label>Step 5</span><span data-for="site">What do you already have?</span><span data-for="pro">What do you have so far?</span><span data-for="brand">Anything I should see?</span></legend>
-            <p data-for="site">Most new businesses start with a name and a phone number. That's fine. This just tells me what I'll be helping with.</p>
+            <p data-for="site" data-sit="refresh">Your current site already has most of this. Only the help you ask for here adds to the price: a logo cleanup, writing help or photo help.</p>
+            <p data-for="site" data-sit-not="refresh">Most new businesses start with a name and a phone number. That's fine. This just tells me what I'll be helping with.</p>
             <p data-for="pro">Nothing needs to be polished yet. This tells me where to start.</p>
             <p data-for="brand">A current logo, signs, colors you like, or brands you admire all help. Everything here is optional.</p>
             <div class="qgroup" data-for="site">
@@ -299,6 +306,7 @@ scripts: quote
           <h2 class="estimate__label">Planning estimate</h2>
           <p class="estimate__empty" data-empty>Answer the first few questions and a range appears here. It updates as you go.</p>
           <div class="estimate__range" data-range hidden><span data-low>$0</span> <small>to</small> <span data-high>$0</span></div>
+          <ul class="estimate__lines" data-lines hidden></ul>
           <ul class="estimate__summary" data-summary></ul>
           <p class="estimate__note">This is a planning range, not a bill. Your actual quote is fixed-price and in writing after a 30-minute call, and the number we agree on is the number you pay.</p>
           <ul class="estimate__trust">
