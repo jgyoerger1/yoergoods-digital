@@ -19,12 +19,26 @@
   "ownerUrl": "https://jordanyoerger.com/",
   "indexNowKey": "c602d68e3cb1ac0b15f86ebfc32401fd",
   "quoteEndpoint": "",
+  "verify": {
+    "google": "",
+    "bing": ""
+  },
   "socials": {
     "linkedin": "https://www.linkedin.com/in/jordan-yoerger",
     "gbp": "",
+    "bingPlaces": "",
     "linkedinCompany": "",
+    "facebook": "",
     "instagram": "",
-    "facebook": ""
+    "yelp": "",
+    "bbb": "",
+    "clutch": "",
+    "designrush": "",
+    "goodfirms": "",
+    "techbehemoths": "",
+    "thumbtack": "",
+    "nextdoor": "",
+    "alignable": ""
   },
   "pricing": {
     "tiers": [

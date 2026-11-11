@@ -27,8 +27,18 @@ Prices below are the published starting prices in US dollars, the same numbers s
 - The domain stays in the client's name. Sites are plain, fast files on free hosting, so there is no platform fee; the only recurring costs are the domain renewal and the optional care plan.
 - The price does not move while the scope stays the same; new requests are quoted separately.
 
+## Local pages
+
+- [Web design in Akron, Ohio](https://www.yoergoodsdigital.com/web-design-akron-ohio/): first site, refresh or rebuild for an Akron small business, with Yoergoods Digital prices next to what Akron-area and national web designers publish.
+- [Web design in Kent, Ohio](https://www.yoergoodsdigital.com/web-design-kent-ohio/): what a contractor or home-service business needs from a website, shown on the site built for a Kent remodeling company.
+- [Web design in Hudson, Ohio](https://www.yoergoodsdigital.com/web-design-hudson-ohio/): when a one-page website is enough for a small or home-based business, shown on the page built for a Hudson pet sitting business.
+- [Web design in Summit County, Ohio](https://www.yoergoodsdigital.com/web-design-summit-county-ohio/): town by town (Stow, Akron, Cuyahoga Falls, Hudson, Munroe Falls, Silver Lake, Tallmadge, plus Kent in Portage County), with the same prices in every town.
+- [Website refresh and redesign](https://www.yoergoodsdigital.com/website-refresh/): the three fixed refresh prices for businesses in Stow, Akron and Northeast Ohio.
+
 ## Pricing context
 
+- [Affordable website design](https://www.yoergoodsdigital.com/affordable-website-design/): every price in one list, the four reasons the prices are low, a three-year cost comparison with DIY builders, and what the $500 one-page price does and does not include.
+- [What Northeast Ohio web designers publicly charge](https://www.yoergoodsdigital.com/website-cost-ohio/): published prices from 24 Northeast Ohio web design firms, checked 11 November 2026. Seventeen publish a one-time starting price for a small business website, from $249 to $5,000 with a median of $1,500; four sell a site as a monthly plan from $49 to $212.50 a month; ten publish a care plan from $29 to $150 a month with a median of $49. Yoergoods Digital compiled the figures and its own prices are not included in them.
 - [Website pricing compared with the market](https://www.yoergoodsdigital.com/pricing/): a side-by-side of DIY builders, marketplace freelancers, web agencies and Yoergoods Digital, with sources. Published 2026 US pricing guides put a five-to-ten page small business website at roughly $1,500 to $5,000 from a freelancer and $5,000 to $15,000 from an agency (WPZOOM, updated 28 September 2026); Wix and Squarespace plans run about $17 to $49 a month on annual billing (checked 30 September 2026).
 
 ## Work

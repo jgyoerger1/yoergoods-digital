@@ -828,3 +828,32 @@ h2.estimate__label { line-height: 1.6; }
 .glance .eyebrow { flex-wrap: nowrap; margin-bottom: 16px; }
 .glance a { color: var(--cream); font-weight: 600; text-decoration: underline; text-decoration-color: rgba(200, 151, 63, 0.7); text-underline-offset: 3px; }
 .glance a:hover { color: var(--gold-2); }
+
+/* GEO pass: local */
+/* footer: one small row of town and price links between the link grid and the copyright line */
+.footer__areas { margin-top: 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 32px; font-size: 13.5px; color: var(--muted); }
+.footer__areas-group { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; }
+.footer__areas-k { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-2); font-weight: 600; }
+.footer__areas a { color: var(--text-2); padding: 4px 0; }
+.footer__areas a:hover { color: var(--gold-2); }
+.footer__areas + .footer__bottom { margin-top: 22px; }
+/* home page: local section between Work and About (the sections around it supply the vertical space) */
+.local .section__head { max-width: 860px; margin-bottom: 0; }
+.local .h2 { font-size: clamp(1.7rem, 3.2vw, 2.5rem); }
+.local .lede { max-width: 68ch; }
+.local .creds { margin: 28px 0 0; }
+.local .creds a:hover { color: var(--gold-2); }
+/* town pages: three panels in a row on desktop, and a panel that spans the whole grid */
+@media (min-width: 981px) { .split--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.panel--wide { grid-column: 1 / -1; }
+/* town pages: a three-column price table whose rows stack on phones (option, price, what it covers), so nothing scrolls sideways */
+@media (max-width: 640px) {
+  .compare--stack { overflow: hidden; }
+  .compare--stack table { min-width: 0; }
+  .compare--stack thead { display: none; }
+  .compare--stack table, .compare--stack tbody, .compare--stack tr, .compare--stack tbody th, .compare--stack td { display: block; }
+  .compare--stack tr { padding: 16px 18px; border-bottom: 1px solid var(--line-dark); }
+  .compare--stack tbody tr:last-child { border-bottom: 0; }
+  .compare--stack tbody th, .compare--stack td { width: auto; padding: 0; border-bottom: 0; }
+  .compare--stack td { margin-top: 6px; }
+}

@@ -283,12 +283,18 @@ $offers += [ordered]@{
 
 $regionCode = @{ 'Ohio' = 'OH' }[$region]
 if (-not $regionCode) { $regionCode = $region }
+# priceRange: lowest fixed price to the highest "from" price, e.g. "$250-$3,500+" (plainer for people and
+# machines than "$$"); every number comes from site.json
+$allPrices = @($prices.GetEnumerator() | Where-Object { $_.Key -notin @('care', 'careyear') } | ForEach-Object { [int]$_.Value })
+if ($site.pricing.branding) { $allPrices += @($site.pricing.branding.PSObject.Properties | ForEach-Object { [int]$_.Value.price }) }
+if ($site.pricing.portfolio) { $allPrices += [int]$site.pricing.portfolio.from }
+$priceRange = (Money (($allPrices | Measure-Object -Minimum).Minimum)) + '-' + (Money (($allPrices | Measure-Object -Maximum).Maximum)) + '+'
 $org = [ordered]@{
   '@type' = 'LocalBusiness'; '@id' = $orgId; name = $site.name; url = "$siteRoot/"
   logo = [ordered]@{ '@type' = 'ImageObject'; '@id' = "$siteRoot/#logo"; url = "$siteRoot/logo-512.png"; contentUrl = "$siteRoot/logo-512.png"; width = 512; height = 512; caption = $site.name }
   image = "$siteRoot/og-image.jpg"; slogan = $site.tagline
   description = ("$($site.name) is a one-person web design studio in $($site.location). It builds fast, Google-ready websites for small businesses in " + [string]$site.serviceArea.summary + ', plus remote clients anywhere in the US, with fixed-price quotes and a professional project manager running every job.')
-  email = $site.email; priceRange = '$$'
+  email = $site.email; priceRange = $priceRange
   address = [ordered]@{ '@type' = 'PostalAddress'; addressLocality = $locality; addressRegion = $regionCode; postalCode = [string]$site.postalCode; addressCountry = 'US' }
   areaServed = $areas
   founder = (New-Ref $personId)
@@ -296,10 +302,16 @@ $org = [ordered]@{
   knowsAbout = @('Small business web design', 'Website redesign', 'Portfolio websites', 'Landing pages', 'Logo and brand identity design', 'Search engine optimization', 'Project management')
   makesOffer = $offers
 }
-# business profiles only (a personal LinkedIn is the Person's, not the business's); omitted until one exists
-$orgSameAs = @(@([string]$site.socials.gbp, [string]$site.socials.linkedinCompany, [string]$site.socials.facebook, [string]$site.socials.instagram) | Where-Object { $_ })
+# business profiles only (a personal LinkedIn is the Person's, not the business's); omitted until one exists.
+# Every non-empty http(s) value in site.json "socials" except "linkedin" becomes a sameAs entry, so a new listing
+# (Yelp, BBB, Clutch...) only needs its URL pasted into site.json.
+$orgSameAs = @($site.socials.PSObject.Properties | Where-Object { $_.Name -ne 'linkedin' -and ([string]$_.Value) -match '^https?://' } | ForEach-Object { [string]$_.Value })
 if ($orgSameAs.Count -gt 0) { $org.sameAs = $orgSameAs }
 if ([string]$site.socials.gbp) { $org.hasMap = [string]$site.socials.gbp }
+# a published phone number (site.json "phone", e.g. "(330) 555-0123") is added in E.164 form
+$phoneDigits = ([string]$site.phone) -replace '\D', ''
+if ($phoneDigits.Length -eq 10) { $phoneDigits = "1$phoneDigits" }
+if ($phoneDigits.Length -eq 11) { $org.telephone = "+$phoneDigits"; $org.contactPoint.telephone = "+$phoneDigits" }
 
 $website = [ordered]@{ '@type' = 'WebSite'; '@id' = $siteId; name = $site.name; alternateName = @([string]$site.shortName, ($siteHost -replace '^www\.', '')); url = "$siteRoot/"; publisher = (New-Ref $orgId); inLanguage = 'en-US' }
 

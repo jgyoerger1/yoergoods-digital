@@ -8,7 +8,11 @@
 <link rel="canonical" href="{{canonical}}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="{{site.owner}}">
-<meta name="theme-color" content="#0b1420">
+<meta name="geo.region" content="US-OH">
+<meta name="geo.placename" content="{{site.location}}">
+{{#site.verify.google}}<meta name="google-site-verification" content="{{site.verify.google}}">
+{{/site.verify.google}}{{#site.verify.bing}}<meta name="msvalidate.01" content="{{site.verify.bing}}">
+{{/site.verify.bing}}<meta name="theme-color" content="#0b1420">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{site.name}}">

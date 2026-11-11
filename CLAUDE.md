@@ -73,6 +73,22 @@ powershell -NoProfile -ExecutionPolicy Bypass -File serve.ps1 -Port 8777     # h
 - SEO: titles keyword-first <= 60 chars, descriptions <= 160, H1 = topic line + slogan, one JSON-LD `@graph` per
   page (LocalBusiness/WebSite/Person/WebPage), sitemap `lastmod` from git, `llms.txt`, IndexNow key file.
   Service-area wording lives only in `site.json` `serviceArea.summary`.
+- Local and price pages (2026-11-11, so AI assistants and search can match "web design Akron Ohio", "cheap website
+  design near Stow", "website refresh Akron"): `/web-design-akron-ohio/`, `/web-design-kent-ohio/` (built around the
+  Yoerger Renovations project), `/web-design-hudson-ohio/` (built around All Paws), the hub
+  `/web-design-summit-county-ohio/`, `/affordable-website-design/` and `/website-cost-ohio/`. Rules: every town page
+  is built on its own real material (no city-name swapping, no new town page without a real project or real local
+  content), nothing claims a client, an office, a phone number or in-person meetings that do not exist, and the first
+  paragraph of each page is a self-contained who / where / what / price answer. The home page is the Stow page.
+  The footer has an "areas" link row; `src/llms.txt` lists these pages.
+- `/website-cost-ohio/` and the local rows on `/web-design-akron-ohio/` and one sentence on
+  `/affordable-website-design/` carry HARD-CODED, DATED figures from a check of 24 Northeast Ohio web design firms'
+  own pricing pages (11 Nov 2026: 17 one-time starting prices $249 to $5,000, median $1,500; care plans $29 to
+  $150/month, median $49; Akron-area $450 to $3,800). Firms are deliberately not named. Re-check every few months and
+  update the date everywhere; the evidence (saved pages, `local-prices.md`) is in gitignored `seo-audit/work/geo2/`.
+- `site.json` plumbing: `verify.google` / `verify.bing` print the Search Console / Bing verification meta tags when
+  filled; every http(s) value under `socials` except `linkedin` becomes a business `sameAs` (so a new listing only
+  needs its URL pasted in); `phone` adds `telephone`; `priceRange` is computed from the prices.
 - Work section: five case studies (Yoerger Renovations, All Paws, June & Fern, Rutline, Jordan's portfolio) in a
   next-link chain. To add one: PNGs in `source/shots/`, copy a `src/pages/work/<x>/` folder, add cards on
   `work/index.html` and the home page.
@@ -120,8 +136,11 @@ Hard-coded paths that will break (do not silently rewrite; fix deliberately):
 
 - `quoteEndpoint` empty: deploy `tools/quote-mailer.gs` (setup notes at its top) and paste the /exec URL.
 - `newsletterEndpoint` and every guide `buyUrl` empty; guides not written yet.
-- `socials.gbp`, `linkedinCompany`, `instagram`, `facebook` empty; filling them auto-adds `sameAs` / `hasMap`.
-- Search Console Domain property + sitemap, Bing import, Google Business Profile, Bing Places, Apple Business
-  Connect, credit links from client sites, honest reviews (all Jordan's steps, outside the repo).
-- Deferred: Stow/Kent/Hudson local landing pages, WebP + srcset for work images (test files in seo-audit),
-  phone number.
+- Every `socials` listing URL except the personal LinkedIn is empty; filling them auto-adds `sameAs` / `hasMap`.
+- As of 2026-11-11 the site was still not in any search index that could be tested, and the domain had no Search
+  Console verification record. Jordan's steps (outside the repo): Search Console (paste the HTML-tag code into
+  `verify.google`, or use a DNS TXT record) + sitemap + request indexing, Bing Webmaster Tools import, Google
+  Business Profile, Bing Places, then the directories assistants quote for local web design searches (Clutch,
+  GoodFirms, DesignRush, TechBehemoths, Thumbtack, BBB, Yelp), credit links from client sites, honest reviews.
+- Deferred: a phone number, WebP + srcset for work images (test files in seo-audit), Cuyahoga Falls / Tallmadge
+  pages (only once there is a real project there).

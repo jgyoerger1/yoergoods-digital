@@ -211,3 +211,20 @@ report, screenshots, and `IMPLEMENT.md`. After publishing, ping search engines w
 Jordan can do: Google Search Console Domain property (DNS TXT at Squarespace) + sitemap, Bing Webmaster Tools
 (import from GSC), Google Business Profile, Bing Places, Apple Business Connect, LinkedIn company page, then add
 those URLs to site.json `socials`.
+
+### AI-search visibility pass (2026-11-11)
+
+Goal: be findable and quotable when someone asks an AI assistant (ChatGPT, Gemini, Copilot, Claude, Perplexity) for
+a web designer, cheap website design or a website refresh near Stow or Akron. Assistants answer from the Google and
+Bing indexes plus business listings, so this pass added pages that match those searches and plumbing for the
+off-site steps:
+
+- New pages: `/web-design-akron-ohio/`, `/web-design-kent-ohio/`, `/web-design-hudson-ohio/`,
+  `/web-design-summit-county-ohio/` (hub), `/affordable-website-design/`, `/website-cost-ohio/` (published prices
+  of 24 Northeast Ohio firms, checked 11 Nov 2026; figures are hard-coded and dated, firms are not named).
+- `/website-refresh/` now names Stow and Akron in its title, H1 and a first FAQ; the home page has a "Where I work"
+  section; the footer has an areas link row; `llms.txt` lists the new pages.
+- site.json: `verify.google` / `verify.bing` (verification meta tags), more `socials` keys (each listing URL
+  becomes a business `sameAs`), `phone` -> `telephone`; `priceRange` is computed.
+- Working files (gitignored): `seo-audit\IMPLEMENT-2.md`, `seo-audit\work\geo2\` (research, saved pricing pages,
+  `verify-geo.cjs`).
